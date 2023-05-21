@@ -1,0 +1,63 @@
+{
+    "success": true,
+    "data": {
+        "id": 1,
+        "titulo": "Mensagens na garrafa",
+        "descricao": "Eu n\u00e3o consigo te dizer nada pessoalmente, mas assim como uma mensagem na garrafa, eu estou aqui esperando que chegue at\u00e9 voc\u00ea um dia.",
+        "categoria_id": 1,
+        "publico_alvo_id": 1,
+        "idioma_id": 1,
+        "direitos_autorais_id": 1,
+        "conteudo_adulto": false,
+        "caminho_capa": "https:\/\/img.wattpad.com\/cover\/294459139-288-k963609.jpg",
+        "usuario_id": 2,
+        "historia_finalizada": false,
+        "data_criacao": "2022-05-14T18:59:20.000000Z",
+        "data_atualizacao": "2022-05-14T15:59:57.000000Z",
+        "categoria_nome": "A\u00e7\u00e3o",
+        "direito_autoral": "Dom\u00ednio p\u00fablico",
+        "nome_usuario": "La\u00eds",
+        "apelido_usuario": "Dama",
+        "usar_apelido": 1,
+        "foto_perfil": "http:\/\/worldbooks.serratedevs.com.br\/upload\/user\/photo_2022-05-04_20-55-13.jpg",
+        "total_capitulos": 3,
+        "total_visualizacoes": 31,
+        "total_votos": 8,
+        "capitulos": [
+            {
+                "id": 1,
+                "titulo": "Se voc\u00ea fosse um astro?",
+                "quantidade_visualizacao": 25,
+                "votacao": 2,
+                "caminho_capa": null
+            },
+            {
+                "id": 2,
+                "titulo": "Serrote",
+                "quantidade_visualizacao": 6,
+                "votacao": 6,
+                "caminho_capa": null
+            },
+            {
+                "id": 43,
+                "titulo": "Cor transparente",
+                "quantidade_visualizacao": 0,
+                "votacao": 0,
+                "caminho_capa": null
+            }
+        ],
+        "tags": [
+            "amor",
+            "decep\u00e7\u00e3o",
+            "desabafo",
+            "l\u00edrica",
+            "paixao",
+            "poema",
+            "poesia",
+            "romance",
+            "saudade",
+            "tristeza"
+        ]
+    },
+    "message": "Hist\u00f3ria retornada com sucesso"
+}

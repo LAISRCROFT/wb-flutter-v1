@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 
@@ -235,25 +236,34 @@ class _ChapterDetailsState extends State<ChapterDetails> {
 
 class BookService {
   Future<Map<String, dynamic>> getBooks() async {
-    final response = await http.get(
-        Uri.parse('http://worldbooks.serratedevs.com.br/wbcore/public/api/historia/categoria/pesquisa?categoria_id=1'));
 
-    if (response.statusCode == 200) {
-      return jsonDecode(response.body);
-    } else {
-      throw Exception('Erro ao carregar os livros');
-    }
+    final String response = await rootBundle.loadString('assets/data/books_list_data.json');
+
+    return jsonDecode(response);
+
+    // final response = await http.get(
+    //     Uri.parse('http://worldbooks.serratedevs.com.br/wbcore/public/api/historia/categoria/pesquisa?categoria_id=1'));
+
+    // if (response.statusCode == 200) {
+    //   return jsonDecode(response.body);
+    // } else {
+    //   throw Exception('Erro ao carregar os livros');
+    // }
   }
 
   Future<Map<String, dynamic>> getBook(int bookId) async {
-    final response = await http.get(
-        Uri.parse('http://worldbooks.serratedevs.com.br/wbcore/public/api/historia/$bookId'));
+    final String response = await rootBundle.loadString('assets/data/book_detailed_data.json');
 
-    if (response.statusCode == 200) {
-      return jsonDecode(response.body);
-    } else {
-      throw Exception('Erro ao carregar o livro');
-    }
+    return jsonDecode(response);
+
+    // final response = await http.get(
+    //     Uri.parse('http://worldbooks.serratedevs.com.br/wbcore/public/api/historia/$bookId'));
+
+    // if (response.statusCode == 200) {
+    //   return jsonDecode(response.body);
+    // } else {
+    //   throw Exception('Erro ao carregar o livro');
+    // }
   }
 
   Future<Map<String, dynamic>> getChapter(int chapterId) async {
