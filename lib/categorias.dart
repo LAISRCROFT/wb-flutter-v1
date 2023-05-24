@@ -1,13 +1,36 @@
+import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'dart:io';
 import 'palletes/pallete.dart';
 import 'models/Categorias.dart';
 import 'package:intl/intl.dart';
 import 'palletes/pallete.dart';
+import 'livros.dart';
 
 final String background_defaut = 'assets/images/cat_cover.jpg';
 
 class CategoriasList extends StatelessWidget {
+  // late Future<Map<String, dynamic>> _categorias;
+
+  /*
+    Future<Map<String, dynamic>> getCategorias() async {
+
+      final String response = await rootBundle.loadString('assets/data/categoria_data.json');
+
+      return jsonDecode(response);
+
+      // final response = await http.get(
+      //     Uri.parse('http://worldbooks.serratedevs.com.br/wbcore/public/api/categoria'));
+
+      // if (response.statusCode == 200) {
+      //   return jsonDecode(response.body);
+      // } else {
+      //   throw Exception('Erro ao carregar os livros');
+      // }
+    }
+  */
+
   final List<Categoria> categorias = [
     Categoria(
         id: '1',
@@ -73,23 +96,34 @@ class CategoriasList extends StatelessWidget {
             return Card(
               elevation: 3,
               margin: EdgeInsets.symmetric(vertical: 8, horizontal: 5),
-              child: Container(
+              child: Ink(
                 decoration: BoxDecoration(
                   image: DecorationImage(
                     image: AssetImage(tr.background),
                     fit: BoxFit.cover,
                   ),
                 ),
-                child: SizedBox(
-                  height: 100,
-                  child: ListTile(
-                    title: Align(
-                      alignment: Alignment.centerLeft,
-                      child: Text(
-                        tr.title,
-                        style: TextStyle(
-                          fontFamily: 'Ubuntu',
-                          fontSize: 20,
+                child: InkWell(
+                  splashColor: Colors.blue.withAlpha(30),
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => Livros(tr.id),
+                      ),
+                    );
+                  },
+                  child: SizedBox(
+                    height: 100,
+                    child: ListTile(
+                      title: Align(
+                        alignment: Alignment.centerLeft,
+                        child: Text(
+                          tr.title,
+                          style: TextStyle(
+                            fontFamily: 'Ubuntu',
+                            fontSize: 20,
+                          ),
                         ),
                       ),
                     ),
@@ -101,22 +135,5 @@ class CategoriasList extends StatelessWidget {
         ),
       ),
     );
-
-    // ListView.builder(
-    //   itemCount: categorias.length,
-    //   itemBuilder: (ctx, index) {
-    //     final tr = categorias[index];
-    //     return Card(
-    //       elevation: 3,
-    //       margin: EdgeInsets.symmetric(vertical: 8, horizontal: 5),
-    //       child: ListTile(
-    //         title: Text(
-    //           tr.title,
-    //           style: Theme.of(context).textTheme.headline6,
-    //         ),
-    //       ),
-    //     );
-    //   },
-    // )
   }
 }
