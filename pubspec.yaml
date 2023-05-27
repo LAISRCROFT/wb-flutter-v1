@@ -68,6 +68,11 @@ flutter:
    - assets/data/books_list_data.json
    - assets/data/book_detailed_data.json
 
+  #  JSONS
+   - assets/data/book_detailed_data.json
+   - assets/data/books_list_data.json
+   - assets/data/categoria_data.json
+
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
 
