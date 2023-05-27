@@ -28,6 +28,7 @@ class _LivroDetalhesState extends State<LivroDetalhes> {
         appBar: AppBar(
           elevation: 0,
           centerTitle: true,
+          automaticallyImplyLeading: true,
           backgroundColor: Palette.WBColor.shade50,
           title: FutureBuilder<Map<String, dynamic>>(
             future: _futureBook, // a previously-obtained Future<String> or null
@@ -55,43 +56,194 @@ class _LivroDetalhesState extends State<LivroDetalhes> {
             if (snapshot.hasData) {
               Map<String, dynamic> book = snapshot.data!['data'];
 
-              return SingleChildScrollView(
-                child: Column(
+              return SafeArea(
+                top: true,
+                child: ListView(
+                  padding: EdgeInsets.zero,
+                  scrollDirection: Axis.vertical,
                   children: [
-                    Image.network(
-                      book['caminho_capa'],
-                      width: 200,
+                    Align(
+                      alignment: AlignmentDirectional(-1, -0.1),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.only(
+                          bottomLeft: Radius.circular(8),
+                          bottomRight: Radius.circular(8),
+                          topLeft: Radius.circular(0),
+                          topRight: Radius.circular(0),
+                        ),
+                        child: Image.network(
+                          book['caminho_capa'],
+                          width: 391,
+                          height: 207,
+                          fit: BoxFit.fitWidth,
+                        ),
+                      ),
                     ),
-                    Text(book['titulo']),
-                    Text(
-                      '${book['nome_usuario']} (${book['apelido_usuario']})',
+                    Column(
+                      mainAxisSize: MainAxisSize.max,
+                      children: [
+                        Divider(
+                          thickness: 1,
+                        ),
+                      ],
                     ),
-                    Text(book['descricao']),
-                    ListView.builder(
-                      shrinkWrap: true,
-                      physics: NeverScrollableScrollPhysics(),
-                      itemCount: book['capitulos'].length,
-                      itemBuilder: (context, index) {
-                        Map<String, dynamic> chapter = book['capitulos'][index];
+                    Align(
+                      alignment: AlignmentDirectional(-0.1, 0),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.max,
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          Align(
+                            alignment: AlignmentDirectional(0, 0.05),
+                            child: Column(
+                              mainAxisSize: MainAxisSize.max,
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Row(
+                                  mainAxisSize: MainAxisSize.max,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceAround,
+                                  children: [
+                                    Align(
+                                      alignment: AlignmentDirectional(-0.05, 0),
+                                      child: Icon(
+                                        Icons.visibility,
+                                        // color: FlutterFlowTheme.of(context)
+                                        //     .secondaryText,
+                                        size: 24,
+                                      ),
+                                    ),
+                                    Align(
+                                        // alignment:
+                                        //     AlignmentDirectional(0.05, 0.05),
+                                        // child: SelectionArea(
+                                        //   child: Text(
+                                        //     '0',
+                                        //     textAlign: TextAlign.end,
+                                        //     maxLines: 1,
 
-                        print(book['capitulos']);
+                                        //     style: FlutterFlowTheme.of(context)
+                                        //         .headlineLarge
+                                        //         .override(
+                                        //           fontFamily: 'Ubuntu',
+                                        //           fontSize: 20,
+                                        //           letterSpacing: 10,
+                                        //         ),
+                                        //   ),
+                                        // ),
+                                        ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ),
+                          // Column(
+                          //   mainAxisSize: MainAxisSize.max,
+                          //   children: [
+                          //     Row(
+                          //       mainAxisSize: MainAxisSize.max,
+                          //       children: [
+                          //         Icon(
+                          //           Icons.star_outline,
+                          //           // color:
+                          //           //     FlutterFlowTheme.of(context).secondaryText,
+                          //           size: 24,
+                          //         ),
+                          //         Flexible(
+                          //           child: Align(
+                          //             alignment:
+                          //                 AlignmentDirectional(0.05, 0.05),
+                          //             child: SelectionArea(
+                          //                 child: Text(
+                          //               '0',
+                          //               textAlign: TextAlign.end,
+                          //               maxLines: 1,
+                          //               // style: FlutterFlowTheme.of(context)
+                          //               //     .headlineLarge
+                          //               //     .override(
+                          //               //       fontFamily: 'Ubuntu',
+                          //               //       fontSize: 20,
+                          //               //       letterSpacing: 10,
+                          //               //     ),
+                          //             )),
+                          //           ),
+                          //         ),
+                          //       ],
+                          //     ),
+                          //   ],
+                          // ),
+                          // Column(
+                          //   mainAxisSize: MainAxisSize.max,
+                          //   children: [
+                          //     Row(
+                          //       mainAxisSize: MainAxisSize.max,
+                          //       children: [
+                          //         Icon(
+                          //           Icons.list,
+                          //           // color:
+                          //           //     FlutterFlowTheme.of(context).secondaryText,
+                          //           size: 24,
+                          //         ),
+                          //         Flexible(
+                          //           child: Align(
+                          //             alignment:
+                          //                 AlignmentDirectional(0.05, 0.05),
+                          //             child: SelectionArea(
+                          //                 child: Text(
+                          //               '0',
+                          //               textAlign: TextAlign.end,
+                          //               // style: FlutterFlowTheme.of(context)
+                          //               //     .headlineLarge
+                          //               //     .override(
+                          //               //       fontFamily: 'Ubuntu',
+                          //               //       fontSize: 20,
+                          //               //       letterSpacing: 10,
+                          //               //     ),
+                          //             )),
+                          //           ),
+                          //         ),
+                          //       ],
+                          //     ),
+                          //   ],
+                          // ),
+                        ],
+                      ),
+                    ),
+                    Column(
+                      children: [
+                        Text(book['titulo']),
+                        Text(
+                          '${book['nome_usuario']} (${book['apelido_usuario']})',
+                        ),
+                        Text(book['descricao']),
+                        ListView.builder(
+                          shrinkWrap: true,
+                          physics: NeverScrollableScrollPhysics(),
+                          itemCount: book['capitulos'].length,
+                          itemBuilder: (context, index) {
+                            Map<String, dynamic> chapter =
+                                book['capitulos'][index];
 
-                        return ListTile(
-                          title: Text(chapter['titulo']),
-                          // subtitle: Text(chapter['descricao']),
-                          onTap: () {
-                            // Navigator.push(
-                            //   context,
-                            //   MaterialPageRoute(
-                            //     builder: (context) => ChapterDetails(
-                            //       chapterId: chapter['id'],
-                            //     ),
-                            //   ),
-                            // );
+                            print(book['capitulos']);
+
+                            return ListTile(
+                              title: Text(chapter['titulo']),
+                              // subtitle: Text(chapter['descricao']),
+                              onTap: () {
+                                // Navigator.push(
+                                //   context,
+                                //   MaterialPageRoute(
+                                //     builder: (context) => ChapterDetails(
+                                //       chapterId: chapter['id'],
+                                //     ),
+                                //   ),
+                                // );
+                              },
+                            );
                           },
-                        );
-                      },
-                    ),
+                        ),
+                      ],
+                    )
                   ],
                 ),
               );

@@ -139,7 +139,7 @@ class _BookDetailsState extends State<BookDetails> {
                   Text(
                     '${book['nome_usuario']} (${book['apelido_usuario']})',
                   ),
-                  Text( book['descricao'] ),
+                  Text(book['descricao']),
                   ListView.builder(
                     shrinkWrap: true,
                     physics: NeverScrollableScrollPhysics(),
@@ -236,8 +236,8 @@ class _ChapterDetailsState extends State<ChapterDetails> {
 
 class BookService {
   Future<Map<String, dynamic>> getBooks() async {
-
-    final String response = await rootBundle.loadString('assets/data/books_list_data.json');
+    final String response =
+        await rootBundle.loadString('assets/data/books_list_data.json');
 
     return jsonDecode(response);
 
@@ -252,7 +252,8 @@ class BookService {
   }
 
   Future<Map<String, dynamic>> getBook(int bookId) async {
-    final String response = await rootBundle.loadString('assets/data/book_detailed_data.json');
+    final String response =
+        await rootBundle.loadString('assets/data/book_detailed_data.json');
 
     return jsonDecode(response);
 
@@ -267,8 +268,8 @@ class BookService {
   }
 
   Future<Map<String, dynamic>> getChapter(int chapterId) async {
-    final response =
-        await http.get(Uri.parse('http://localhost:8000/api/capitulos/$chapterId'));
+    final response = await http
+        .get(Uri.parse('http://localhost:8000/api/capitulos/$chapterId'));
 
     if (response.statusCode == 200) {
       return jsonDecode(response.body);
