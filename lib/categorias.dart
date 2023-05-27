@@ -4,54 +4,43 @@ import 'palletes/pallete.dart';
 import 'models/Categorias.dart';
 import 'package:intl/intl.dart';
 import 'palletes/pallete.dart';
+import 'livros.dart';
+import 'package:flutter/services.dart';
+import 'dart:convert';
 
 final String background_defaut = 'assets/images/cat_cover.jpg';
 
-class CategoriasList extends StatelessWidget {
-  final List<Categoria> categorias = [
-    Categoria(
-        id: '1',
-        title: 'Terror',
-        background: "assets/images/categorias/terror.png"),
-    Categoria(
-        id: '2',
-        title: 'Romance',
-        background: 'assets/images/categorias/romance.png'),
-    Categoria(
-        id: '3',
-        title: 'Ação',
-        background: 'assets/images/categorias/acao.png'),
-    Categoria(
-        id: '4',
-        title: 'Mistério',
-        background: 'assets/images/categorias/misterio.png'),
-    Categoria(
-        id: '5',
-        title: 'Ficção Científica',
-        background: 'assets/images/categorias/ficcao_cientifica.png'),
-    Categoria(
-        id: '6',
-        title: 'Fantasia',
-        background: 'assets/images/categorias/fantasia.png'),
-    Categoria(
-        id: '7',
-        title: 'Comédia',
-        background: 'assets/images/categorias/comedia.png'),
-    Categoria(
-        id: '8',
-        title: 'Drama',
-        background: 'assets/images/categorias/drama.png'),
-    Categoria(
-        id: '9',
-        title: 'Suspense',
-        background: 'assets/images/categorias/suspense.png'),
-    Categoria(
-        id: '10',
-        title: 'Aventura',
-        background: 'assets/images/categorias/aventura.png'),
-  ];
+class CategoriasList extends StatefulWidget {
+  @override
+  State<CategoriasList> createState() => _CategoriasListState();
+}
 
-  // CategoriasList(this.categorias);
+class _CategoriasListState extends State<CategoriasList> {
+  late Future<Map<String, dynamic>> _categorias;
+
+  Object? get livroId => null;
+
+  Future<Map<String, dynamic>> getCategorias() async {
+    final String response =
+        await rootBundle.loadString('assets/data/categoria_data.json');
+
+    return jsonDecode(response);
+
+    // final response = await http.get(
+    //     Uri.parse('http://worldbooks.serratedevs.com.br/wbcore/public/api/categoria'));
+
+    // if (response.statusCode == 200) {
+    //   return jsonDecode(response.body);
+    // } else {
+    //   throw Exception('Erro ao carregar os livros');
+    // }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _categorias = getCategorias();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -66,57 +55,79 @@ class CategoriasList extends StatelessWidget {
             style: TextStyle(fontFamily: 'Ubuntu'),
           ),
         ),
-        body: ListView.builder(
-          itemCount: categorias.length,
-          itemBuilder: (ctx, index) {
-            final tr = categorias[index];
-            return Card(
-              elevation: 3,
-              margin: EdgeInsets.symmetric(vertical: 8, horizontal: 5),
-              child: Container(
-                decoration: BoxDecoration(
-                  image: DecorationImage(
-                    image: AssetImage(tr.background),
-                    fit: BoxFit.cover,
-                  ),
-                ),
-                child: SizedBox(
-                  height: 100,
-                  child: ListTile(
-                    title: Align(
-                      alignment: Alignment.centerLeft,
-                      child: Text(
-                        tr.title,
-                        style: TextStyle(
-                          fontFamily: 'Ubuntu',
-                          fontSize: 20,
+        body: FutureBuilder<Map<String, dynamic>>(
+          future: _categorias,
+          builder: (context, snapshot) {
+            // Contém os dados dos livros
+            if (snapshot.hasData) {
+              List<dynamic> categorias = snapshot.data!['data'];
+
+              if (categorias.isEmpty) {
+                return Center(
+                  child: Text('Nenhuma categoria encontrada'),
+                );
+              }
+
+              return ListView.builder(
+                itemCount: categorias.length,
+                itemBuilder: (ctx, index) {
+                  Map<String, dynamic> categoria = categorias[index];
+                  return Card(
+                    elevation: 3,
+                    margin: EdgeInsets.symmetric(vertical: 8, horizontal: 5),
+                    child: Ink(
+                      decoration: BoxDecoration(
+                        image: DecorationImage(
+                          image: AssetImage(categoria['bg_path_mobile'] != null
+                              ? categoria['bg_path_mobile']
+                              : background_defaut),
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                      child: InkWell(
+                        splashColor: Colors.blue.withAlpha(30),
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => Livros(
+                                categoria_id: categoria['id'],
+                              ),
+                            ),
+                          );
+                        },
+                        child: SizedBox(
+                          height: 100,
+                          child: ListTile(
+                            title: Align(
+                              alignment: Alignment.centerLeft,
+                              child: Text(
+                                categoria['genero'],
+                                style: TextStyle(
+                                  fontFamily: 'Ubuntu',
+                                  fontSize: 20,
+                                ),
+                              ),
+                            ),
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                ),
-              ),
+                  );
+                },
+              );
+            }
+            // Sem livros p/ categoria
+            else if (snapshot.hasError) {
+              return Text('${snapshot.error}');
+            }
+
+            return const Center(
+              child: CircularProgressIndicator(),
             );
           },
         ),
       ),
     );
-
-    // ListView.builder(
-    //   itemCount: categorias.length,
-    //   itemBuilder: (ctx, index) {
-    //     final tr = categorias[index];
-    //     return Card(
-    //       elevation: 3,
-    //       margin: EdgeInsets.symmetric(vertical: 8, horizontal: 5),
-    //       child: ListTile(
-    //         title: Text(
-    //           tr.title,
-    //           style: Theme.of(context).textTheme.headline6,
-    //         ),
-    //       ),
-    //     );
-    //   },
-    // )
   }
 }

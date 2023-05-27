@@ -1,0 +1,265 @@
+{
+  "success": true,
+  "data": [
+    {
+      "id": 1,
+      "genero": "Ação",
+      "data_criacao": "2022-04-09T03:32:52.000000Z",
+      "data_atualizacao": "2022-04-09T03:32:52.000000Z",
+      "bg_path_mobile": "assets/images/categorias/acao.png"
+    },
+    {
+      "id": 2,
+      "genero": "Aventura",
+      "data_criacao": "2022-04-10T03:35:20.000000Z",
+      "data_atualizacao": "2022-04-10T00:36:00.000000Z",
+      "bg_path_mobile": "assets/images/categorias/aventura.png"
+    },
+    {
+      "id": 3,
+      "genero": "Romance",
+      "data_criacao": "2022-04-10T00:36:00.000000Z",
+      "data_atualizacao": "2022-04-10T00:36:00.000000Z",
+      "bg_path_mobile": "assets/images/categorias/romance.png"
+    },
+    {
+      "id": 4,
+      "genero": "Terror",
+      "data_criacao": "2022-04-10T00:36:00.000000Z",
+      "data_atualizacao": "2022-04-10T00:36:00.000000Z",
+      "bg_path_mobile": "assets/images/categorias/terror.png"
+    },
+    {
+      "id": 5,
+      "genero": "Fantasia",
+      "data_criacao": "2022-04-10T00:36:00.000000Z",
+      "data_atualizacao": "2022-04-10T00:36:00.000000Z",
+      "bg_path_mobile": "assets/images/categorias/fantasia.png"
+    },
+    {
+      "id": 6,
+      "genero": "Ficção Científica",
+      "data_criacao": "2022-04-10T00:36:00.000000Z",
+      "data_atualizacao": "2022-04-10T00:36:00.000000Z",
+      "bg_path_mobile": "assets/images/categorias/ficcao_cientifica.png"
+    },
+    {
+      "id": 7,
+      "genero": "Adulto",
+      "data_criacao": "2022-04-10T00:36:00.000000Z",
+      "data_atualizacao": "2022-04-10T00:36:00.000000Z",
+      "bg_path_mobile": null
+    },
+    {
+      "id": 8,
+      "genero": "Poesia",
+      "data_criacao": "2022-04-10T00:36:00.000000Z",
+      "data_atualizacao": "2022-04-10T00:36:00.000000Z",
+      "bg_path_mobile": null
+    },
+    {
+      "id": 9,
+      "genero": "Literatura",
+      "data_criacao": "2022-04-10T00:36:00.000000Z",
+      "data_atualizacao": "2022-04-10T00:36:00.000000Z",
+      "bg_path_mobile": null
+    },
+    {
+      "id": 10,
+      "genero": "Adolescente",
+      "data_criacao": "2022-04-10T00:36:00.000000Z",
+      "data_atualizacao": "2022-04-10T00:36:00.000000Z",
+      "bg_path_mobile": null
+    },
+    {
+      "id": 11,
+      "genero": "Mistério",
+      "data_criacao": "2022-04-10T00:36:00.000000Z",
+      "data_atualizacao": "2022-04-10T00:36:00.000000Z",
+      "bg_path_mobile": "assets/images/categorias/misterio.png"
+    },
+    {
+      "id": 12,
+      "genero": "Musical (songfic)",
+      "data_criacao": "2022-04-10T00:36:00.000000Z",
+      "data_atualizacao": "2022-04-10T00:36:00.000000Z",
+      "bg_path_mobile": null
+    },
+    {
+      "id": 13,
+      "genero": "Comédia",
+      "data_criacao": "2022-04-10T00:36:00.000000Z",
+      "data_atualizacao": "2022-04-10T00:36:00.000000Z",
+      "bg_path_mobile": "assets/images/categorias/comedia.png"
+    },
+    {
+      "id": 14,
+      "genero": "Seinen",
+      "data_criacao": "2022-04-10T00:36:00.000000Z",
+      "data_atualizacao": "2022-04-10T00:36:00.000000Z",
+      "bg_path_mobile": null
+    },
+    {
+      "id": 15,
+      "genero": "Shonen",
+      "data_criacao": "2022-04-10T00:36:00.000000Z",
+      "data_atualizacao": "2022-04-10T00:36:00.000000Z",
+      "bg_path_mobile": null
+    },
+    {
+      "id": 16,
+      "genero": "Shoujo",
+      "data_criacao": "2022-04-10T00:36:00.000000Z",
+      "data_atualizacao": "2022-04-10T00:36:00.000000Z",
+      "bg_path_mobile": null
+    },
+    {
+      "id": 17,
+      "genero": "Suspense",
+      "data_criacao": "2022-04-10T00:36:00.000000Z",
+      "data_atualizacao": "2022-04-10T00:36:00.000000Z",
+      "bg_path_mobile": "assets/images/categorias/suspense.png"
+    },
+    {
+      "id": 18,
+      "genero": "Psicológico",
+      "data_criacao": "2022-04-10T00:36:00.000000Z",
+      "data_atualizacao": "2022-04-10T00:36:00.000000Z",
+      "bg_path_mobile": null
+    },
+    {
+      "id": 19,
+      "genero": "Erotismo",
+      "data_criacao": "2022-04-10T00:36:00.000000Z",
+      "data_atualizacao": "2022-04-10T00:36:00.000000Z",
+      "bg_path_mobile": null
+    },
+    {
+      "id": 20,
+      "genero": "Escolar",
+      "data_criacao": "2022-04-10T00:36:00.000000Z",
+      "data_atualizacao": "2022-04-10T00:36:00.000000Z",
+      "bg_path_mobile": null
+    },
+    {
+      "id": 21,
+      "genero": "Drama",
+      "data_criacao": "2022-04-10T00:36:00.000000Z",
+      "data_atualizacao": "2022-04-10T00:36:00.000000Z",
+      "bg_path_mobile": "assets/images/categorias/drama.png"
+    },
+    {
+      "id": 22,
+      "genero": "Fatos reais",
+      "data_criacao": "2022-04-10T00:36:00.000000Z",
+      "data_atualizacao": "2022-04-10T00:36:00.000000Z",
+      "bg_path_mobile": null
+    },
+    {
+      "id": 23,
+      "genero": "Fanfic",
+      "data_criacao": "2022-04-10T00:36:00.000000Z",
+      "data_atualizacao": "2022-04-10T00:36:00.000000Z",
+      "bg_path_mobile": null
+    },
+    {
+      "id": 24,
+      "genero": "Tragédia",
+      "data_criacao": "2022-04-10T00:36:00.000000Z",
+      "data_atualizacao": "2022-04-10T00:36:00.000000Z",
+      "bg_path_mobile": null
+    },
+    {
+      "id": 25,
+      "genero": "Gore",
+      "data_criacao": "2022-04-10T00:36:00.000000Z",
+      "data_atualizacao": "2022-04-10T00:36:00.000000Z",
+      "bg_path_mobile": null
+    },
+    {
+      "id": 26,
+      "genero": "Esportes",
+      "data_criacao": "2022-04-10T00:36:00.000000Z",
+      "data_atualizacao": "2022-04-10T00:36:00.000000Z",
+      "bg_path_mobile": null
+    },
+    {
+      "id": 27,
+      "genero": "Misticismo",
+      "data_criacao": "2022-04-10T00:36:00.000000Z",
+      "data_atualizacao": "2022-04-10T00:36:00.000000Z",
+      "bg_path_mobile": null
+    },
+    {
+      "id": 28,
+      "genero": "Religioso",
+      "data_criacao": "2022-04-10T00:36:00.000000Z",
+      "data_atualizacao": "2022-04-10T00:36:00.000000Z",
+      "bg_path_mobile": null
+    },
+    {
+      "id": 29,
+      "genero": "Sobrenatural",
+      "data_criacao": "2022-04-10T00:36:00.000000Z",
+      "data_atualizacao": "2022-04-10T00:36:00.000000Z",
+      "bg_path_mobile": null
+    },
+    {
+      "id": 30,
+      "genero": "Tragédia",
+      "data_criacao": "2022-04-10T00:36:00.000000Z",
+      "data_atualizacao": "2022-04-10T00:36:00.000000Z",
+      "bg_path_mobile": null
+    },
+    {
+      "id": 31,
+      "genero": "LGBTQIA+",
+      "data_criacao": "2022-04-10T00:36:00.000000Z",
+      "data_atualizacao": "2022-04-10T00:36:00.000000Z",
+      "bg_path_mobile": null
+    },
+    {
+      "id": 32,
+      "genero": "Universo Alternativo",
+      "data_criacao": "2022-04-10T00:36:00.000000Z",
+      "data_atualizacao": "2022-04-10T00:36:00.000000Z",
+      "bg_path_mobile": null
+    },
+    {
+      "id": 33,
+      "genero": "Policial",
+      "data_criacao": "2022-04-10T00:36:00.000000Z",
+      "data_atualizacao": "2022-04-10T00:36:00.000000Z",
+      "bg_path_mobile": null
+    },
+    {
+      "id": 34,
+      "genero": "Celebridades",
+      "data_criacao": "2022-04-10T00:36:00.000000Z",
+      "data_atualizacao": "2022-04-10T00:36:00.000000Z",
+      "bg_path_mobile": null
+    },
+    {
+      "id": 35,
+      "genero": "Jogos / Games",
+      "data_criacao": "2022-04-10T00:36:00.000000Z",
+      "data_atualizacao": "2022-04-10T00:36:00.000000Z",
+      "bg_path_mobile": null
+    },
+    {
+      "id": 36,
+      "genero": "Infantil",
+      "data_criacao": "2022-04-16T18:52:54.000000Z",
+      "data_atualizacao": "-000001-11-30T03:06:28.000000Z",
+      "bg_path_mobile": null
+    },
+    {
+      "id": 37,
+      "genero": "Científico",
+      "data_criacao": "2022-04-16T18:58:54.000000Z",
+      "data_atualizacao": "-000001-11-30T03:06:28.000000Z",
+      "bg_path_mobile": null
+    }
+  ],
+  "message": "Categorias retrieved successfully"
+}
