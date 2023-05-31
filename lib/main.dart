@@ -163,10 +163,8 @@ class _MyHomePageState extends State<MyHomePage> {
                   style: ButtonStyle(
                     elevation: MaterialStateProperty.all(0),
                     maximumSize: MaterialStateProperty.all(const Size(100, 45)),
-                    padding: MaterialStateProperty.all(
-                        EdgeInsets.symmetric(horizontal: _padding_form)),
-                    backgroundColor:
-                        MaterialStateProperty.all(Palette.WBColor.shade50),
+                    padding: MaterialStateProperty.all(EdgeInsets.symmetric(horizontal: _padding_form)),
+                    backgroundColor:MaterialStateProperty.all(Palette.WBColor.shade50),
                     textStyle: MaterialStateProperty.all(
                       const TextStyle(fontFamily: 'Ubuntu'),
                     ),

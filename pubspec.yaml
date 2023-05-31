@@ -46,6 +46,7 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
+  # BACKGROUNDS
    - assets/images/wb_logo.png
    - assets/images/wave-haikei.png
    - assets/images/wave-haikei-2.png
@@ -55,6 +56,8 @@ flutter:
    - assets/images/layered-waves-haikei-2.png
    - assets/images/layered-waves-haikei-3.png
    - assets/images/cat_cover.jpg
+
+  #  BACKGROUND CATEGORIAS
    - assets/images/categorias/romance.png
    - assets/images/categorias/terror.png
    - assets/images/categorias/acao.png
@@ -67,6 +70,9 @@ flutter:
    - assets/images/categorias/drama.png
    - assets/data/books_list_data.json
    - assets/data/book_detailed_data.json
+
+  #  AVATAR
+   - assets/images/avatar/default.jpg
 
   #  JSONS
    - assets/data/book_detailed_data.json
@@ -87,6 +93,7 @@ flutter:
   fonts:
     - family: Ubuntu
       fonts:
+        - asset: assets/fonts/Ubuntu-Regular.ttf
         - asset: assets/fonts/Ubuntu-Bold.ttf
         # - asset: assets/fonts/Ubuntu-BoldItalic.ttf
         # - asset: assets/fonts/Ubuntu-Italic.ttf
@@ -94,7 +101,7 @@ flutter:
         # - asset: assets/fonts/Ubuntu-LightItalic.ttf
         - asset: assets/fonts/Ubuntu-Medium.ttf
         # - asset: assets/fonts/Ubuntu-MediumItalic.ttf
-        - asset: assets/fonts/Ubuntu-Regular.ttf
-          weight: 900
+          style: normal
+          weight: 100
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
