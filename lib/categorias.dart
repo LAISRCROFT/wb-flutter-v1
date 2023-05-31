@@ -6,6 +6,7 @@ import 'palletes/pallete.dart';
 import 'models/Categorias.dart';
 import 'package:intl/intl.dart';
 import 'palletes/pallete.dart';
+import 'components/Sidebar.dart';
 import 'livros.dart';
 import 'package:flutter/services.dart';
 import 'dart:convert';
@@ -49,9 +50,11 @@ class _CategoriasListState extends State<CategoriasList> {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
+        backgroundColor: Palette.WBColor.shade400,
         appBar: AppBar(
           centerTitle: true,
           backgroundColor: Palette.WBColor.shade50,
+          elevation: 0,
           title: Text(
             'CATEGORIAS',
             style: TextStyle(fontFamily: 'Ubuntu'),
@@ -75,25 +78,34 @@ class _CategoriasListState extends State<CategoriasList> {
                 itemBuilder: (ctx, index) {
                   Map<String, dynamic> categoria = categorias[index];
                   return Card(
-                    elevation: 3,
-                    margin: EdgeInsets.symmetric(vertical: 8, horizontal: 5),
+                    color: Colors.transparent,
+                    elevation: 0,
+                    margin: EdgeInsets.symmetric(vertical: 8, horizontal: 8),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
                     child: Ink(
                       decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        border: Border.all(color: Palette.WBColor.shade200),
                         image: DecorationImage(
                           image: AssetImage(categoria['bg_path_mobile'] != null
                               ? categoria['bg_path_mobile']
                               : background_defaut),
+                          colorFilter: new ColorFilter.mode(
+                              Colors.black.withOpacity(0), BlendMode.dstATop),
                           fit: BoxFit.cover,
                         ),
                       ),
                       child: InkWell(
-                        splashColor: Colors.blue.withAlpha(30),
+                        splashColor: Colors.purple.withAlpha(30),
                         onTap: () {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
                               builder: (context) => Livros(
                                 categoria_id: categoria['id'],
+                                nome_categoria: categoria['genero'],
                               ),
                             ),
                           );
@@ -106,9 +118,9 @@ class _CategoriasListState extends State<CategoriasList> {
                               child: Text(
                                 categoria['genero'],
                                 style: TextStyle(
-                                  fontFamily: 'Ubuntu',
-                                  fontSize: 20,
-                                ),
+                                    fontFamily: 'Ubuntu',
+                                    fontSize: 20,
+                                    color: Palette.WBColor.shade200),
                               ),
                             ),
                           ),
@@ -129,6 +141,7 @@ class _CategoriasListState extends State<CategoriasList> {
             );
           },
         ),
+        endDrawer: Sidebar(),
       ),
     );
   }
