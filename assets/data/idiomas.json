@@ -1,0 +1,42 @@
+{
+  "success": true,
+  "data": [
+    {
+      "id": 1,
+      "nome": "Português brasileiro",
+      "data_criacao": "2022-04-09T03:32:52.000000Z",
+      "data_atualizacao": "2022-04-09T03:32:52.000000Z"
+    },
+    {
+      "id": 2,
+      "nome": "Mandarim",
+      "data_criacao": "2022-04-10T03:35:20.000000Z",
+      "data_atualizacao": "2022-04-10T00:36:00.000000Z"
+    },
+    {
+      "id": 3,
+      "nome": "Espanhol",
+      "data_criacao": "2022-04-10T00:36:00.000000Z",
+      "data_atualizacao": "2022-04-10T00:36:00.000000Z"
+    },
+    {
+      "id": 4,
+      "nome": "Inglês",
+      "data_criacao": "2022-04-10T00:36:00.000000Z",
+      "data_atualizacao": "2022-04-10T00:36:00.000000Z"
+    },
+    {
+      "id": 5,
+      "nome": "Inglês",
+      "data_criacao": "2022-04-10T00:36:00.000000Z",
+      "data_atualizacao": "2022-04-10T00:36:00.000000Z"
+    },
+    {
+      "id": 6,
+      "nome": "Português PT",
+      "data_criacao": "2022-04-10T00:36:00.000000Z",
+      "data_atualizacao": "2022-04-10T00:36:00.000000Z"
+    }
+  ],
+  "message": "Idiomas retrieved successfully"
+}

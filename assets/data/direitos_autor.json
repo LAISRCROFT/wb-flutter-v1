@@ -1,0 +1,48 @@
+{
+  "success": true,
+  "data": [
+    {
+      "id": 1,
+      "nome": "Domínio público",
+      "data_criacao": "2022-04-09T03:32:52.000000Z",
+      "data_atualizacao": "2022-04-09T03:32:52.000000Z"
+    },
+    {
+      "id": 2,
+      "nome": "Atribuição Creative Commons (CC)",
+      "data_criacao": "2022-04-10T03:35:20.000000Z",
+      "data_atualizacao": "2022-04-10T00:36:00.000000Z"
+    },
+    {
+      "id": 3,
+      "nome": "Atribuição NãoComercial (CC)",
+      "data_criacao": "2022-04-10T00:36:00.000000Z",
+      "data_atualizacao": "2022-04-10T00:36:00.000000Z"
+    },
+    {
+      "id": 4,
+      "nome": "(CC) Atrib. NonComm. a obras não derivadas",
+      "data_criacao": "2022-04-10T00:36:00.000000Z",
+      "data_atualizacao": "2022-04-10T00:36:00.000000Z"
+    },
+    {
+      "id": 5,
+      "nome": "(CC) Atrib. NonComm. Partilha de semelhantes",
+      "data_criacao": "2022-04-10T00:36:00.000000Z",
+      "data_atualizacao": "2022-04-10T00:36:00.000000Z"
+    },
+    {
+      "id": 6,
+      "nome": "(CC) Atribuição-Partilha de semelhantes",
+      "data_criacao": "2022-04-10T00:36:00.000000Z",
+      "data_atualizacao": "2022-04-10T00:36:00.000000Z"
+    },
+    {
+      "id": 6,
+      "nome": "(CC) Attribution-SemDerivs",
+      "data_criacao": "2022-04-10T00:36:00.000000Z",
+      "data_atualizacao": "2022-04-10T00:36:00.000000Z"
+    }
+  ],
+  "message": "Idiomas retrieved successfully"
+}
