@@ -21,6 +21,10 @@ dependencies:
     sdk: flutter
   http: ^0.13.6
   intl: ^0.18.1
+  cookie_jar: ^4.0.3
+  dio: ^5.1.2
+  dio_cookie_manager: ^3.0.0
+  path_provider: ^2.0.15
 
 dev_dependencies:
   flutter_test:
