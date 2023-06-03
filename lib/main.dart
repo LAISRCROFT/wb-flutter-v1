@@ -59,9 +59,8 @@ class _MyHomePageState extends State<MyHomePage> {
   final List<Categoria> _categorias = [];
 
   final double _padding_form = 20;
-
+  
   String _xsrfToken = '';
-
 
   final dio = Dio();
   final cookieJar = CookieJar();
@@ -329,6 +328,7 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
     );
     return Scaffold(
+      backgroundColor: Palette.WBColor.shade400,
       body: bodyPage,
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );

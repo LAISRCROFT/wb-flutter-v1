@@ -73,6 +73,8 @@ class _CategoriasListState extends State<CategoriasList> {
                 );
               }
 
+              categorias.sort((a, b) => a['genero'].toString().compareTo(b['genero'].toString()));
+
               return ListView.builder(
                 itemCount: categorias.length,
                 itemBuilder: (ctx, index) {
