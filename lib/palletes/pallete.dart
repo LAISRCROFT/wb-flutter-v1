@@ -16,6 +16,13 @@ class Palette {
       800: Color(0xfff0f0f0), //100%
     },
   );
+  static const MaterialColor Inputs = MaterialColor(
+    0xffe55f48, // 0% comes in here, this will be color picked if no shade is selected when defining a Color property which doesn’t require a swatch.
+    <int, Color>{
+      50: Color(0xff999999),
+      100: Color(0xff4b4b4b),
+    },
+  );
   static const Color WBColorShade50 = Color(0xff7a22a7);
   static const Color WBColorShade100 = Color(0xff000000);
   static const Color WBColorShade200 = Color(0xffe0e0e0);
@@ -25,4 +32,8 @@ class Palette {
   static const Color WBColorShade600 = Color(0xffffffff);
   static const Color WBColorShade700 = Color(0xffcecece);
   static const Color WBColorShade800 = Color(0xfff0f0f0);
+
+  static const Color InputsShade50 = Color(0xff999999);
+  static const Color InputsShade100 = Color(0xff4b4b4b);
+
 }
