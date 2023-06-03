@@ -3,6 +3,8 @@ import 'dart:io';
 import 'palletes/pallete.dart';
 import 'categorias.dart';
 import 'models/Categorias.dart';
+import 'package:http/http.dart' as http;
+import 'package:dio/dio.dart';
 
 void main() => runApp(const Login());
 
@@ -52,6 +54,97 @@ class _MyHomePageState extends State<MyHomePage> {
 
   final double _padding_form = 20;
 
+  Future<void> realizarLogin(String email, String password) async {
+    print("Email: ${email}. Senha: ${password}");
+    String url = 'https://worldbooks.serratedevs.com.br/wbcore/public/sanctum';
+    String getUrl = 'https://worldbooks.serratedevs.com.br/wbcore/public/api/historia/1';
+    
+    try {
+      final response = await http.post(
+        Uri.parse(url),
+        body: {
+          'email': email,
+          'password': password,
+        },
+        headers: {
+          'X-XSRF-TOKEN': 'eyJpdiI6IjNldzYxYnJ6cUdOVzRvQzl0SUNmZXc9PSIsInZhbHVlIjoiODdBRk1WZVhnbFFiWThGZnBnVVhEZHJ1ZUlWT0l1SGR6bFNVK3Z0MzVDZS9qcXNaTEhzVFdiQmJkR25WbjFVZ1R5WStQcnZXV2tmTkFQQm16RVNsQVhnYkpVTWFiZm5BMnpwZDhGVTVlcEdXRWsxUlVoQ01sN3IzODh5VVh3b0MiLCJtYWMiOiI4OWJjMGI3ZGUxMzM0YmM5YjNlOGZiMWNjMGIzOGZlNTRlMTRjZGYwNWM3MTc2ZTc0YzYxMDExMjU3ZDRkNjY3IiwidGFnIjoiIn0%3D; world_books_session=eyJpdiI6ImlSQ3hlZlRDUTlqdzR6SnFmaGNRTEE9PSIsInZhbHVlIjoiaGl3aEg3ZHZZSzR6ZFAvY20yMk40L05kRFNvdnJzcjNsNVoybDV5NmhFenYrK2JvWlJVTGNOR1VJWXNaLzhoQmRwSWhGSUZJclgreXkzMVU3YWlJZmtYUWQwVjRiSzlSR04wdzdBdk5obFRpSHI2QWxiWHlrSytvYVJZUHRkbXIiLCJtYWMiOiJhM2RjNmU1ZTU1NDVjMWM3YzQ2ODEwYWI2MjhkMzQ4MTQ4ZDkxMGQ3NzBlYzBmMWZlNDI4YmRmMzc4MDUxZDQ1IiwidGFnIjoiIn0%3D',
+          'Accept-Encoding': 'gzip, deflate, br',
+          'Connection': 'keep-alive',
+          'Accept': '*/*'       
+        }
+      );
+      // Verifique o código de status da resposta
+      if (response.statusCode == 200) {
+        // A requisição foi bem-sucedida, você pode manipular a resposta aqui
+        print(response.body);
+      } else {
+        // A requisição falhou
+        print('Falha na requisição: ${response.statusCode}');
+      }
+    } catch (error) {
+      // Trate qualquer erro que ocorrer durante a requisição
+      print('Erro na requisição: $error');
+    }
+  }
+
+  Future<void> getCookie() async {
+    String url = 'https://worldbooks.serratedevs.com.br/wbcore/public/sanctum';
+    
+    try {
+      final response = await http.get(
+        Uri.parse(url),
+        headers: {
+          'X-XSRF-TOKEN': 'eyJpdiI6IjNldzYxYnJ6cUdOVzRvQzl0SUNmZXc9PSIsInZhbHVlIjoiODdBRk1WZVhnbFFiWThGZnBnVVhEZHJ1ZUlWT0l1SGR6bFNVK3Z0MzVDZS9qcXNaTEhzVFdiQmJkR25WbjFVZ1R5WStQcnZXV2tmTkFQQm16RVNsQVhnYkpVTWFiZm5BMnpwZDhGVTVlcEdXRWsxUlVoQ01sN3IzODh5VVh3b0MiLCJtYWMiOiI4OWJjMGI3ZGUxMzM0YmM5YjNlOGZiMWNjMGIzOGZlNTRlMTRjZGYwNWM3MTc2ZTc0YzYxMDExMjU3ZDRkNjY3IiwidGFnIjoiIn0%3D; world_books_session=eyJpdiI6ImlSQ3hlZlRDUTlqdzR6SnFmaGNRTEE9PSIsInZhbHVlIjoiaGl3aEg3ZHZZSzR6ZFAvY20yMk40L05kRFNvdnJzcjNsNVoybDV5NmhFenYrK2JvWlJVTGNOR1VJWXNaLzhoQmRwSWhGSUZJclgreXkzMVU3YWlJZmtYUWQwVjRiSzlSR04wdzdBdk5obFRpSHI2QWxiWHlrSytvYVJZUHRkbXIiLCJtYWMiOiJhM2RjNmU1ZTU1NDVjMWM3YzQ2ODEwYWI2MjhkMzQ4MTQ4ZDkxMGQ3NzBlYzBmMWZlNDI4YmRmMzc4MDUxZDQ1IiwidGFnIjoiIn0%3D',
+          'Accept-Encoding': 'gzip, deflate, br',
+          'Connection': 'keep-alive',
+          'Accept': '*/*'       
+        }
+      );
+      // Verifique o código de status da resposta
+      if (response.statusCode == 200) {
+        // A requisição foi bem-sucedida, você pode manipular a resposta aqui
+        print(response.body);
+      } else {
+        // A requisição falhou
+        print('Falha na requisição: ${response.statusCode}');
+      }
+    } catch (error) {
+      // Trate qualquer erro que ocorrer durante a requisição
+      print('Erro na requisição: $error');
+    }
+  }
+
+  Future<void> getCookie2() async {
+    String url = 'https://worldbooks.serratedevs.com.br/wbcore/public/sanctum';
+
+    try {
+      Dio dio = Dio();
+      
+      Map<String, String> headers = {
+        'Cookie': 'XSRF-TOKEN=eyJpdiI6IjNldzYxYnJ6cUdOVzRvQzl0SUNmZXc9PSIsInZhbHVlIjoiODdBRk1WZVhnbFFiWThGZnBnVVhEZHJ1ZUlWT0l1SGR6bFNVK3Z0MzVDZS9qcXNaTEhzVFdiQmJkR25WbjFVZ1R5WStQcnZXV2tmTkFQQm16RVNsQVhnYkpVTWFiZm5BMnpwZDhGVTVlcEdXRWsxUlVoQ01sN3IzODh5VVh3b0MiLCJtYWMiOiI4OWJjMGI3ZGUxMzM0YmM5YjNlOGZiMWNjMGIzOGZlNTRlMTRjZGYwNWM3MTc2ZTc0YzYxMDExMjU3ZDRkNjY3IiwidGFnIjoiIn0%3D; world_books_session=eyJpdiI6ImlSQ3hlZlRDUTlqdzR6SnFmaGNRTEE9PSIsInZhbHVlIjoiaGl3aEg3ZHZZSzR6ZFAvY20yMk40L05kRFNvdnJzcjNsNVoybDV5NmhFenYrK2JvWlJVTGNOR1VJWXNaLzhoQmRwSWhGSUZJclgreXkzMVU3YWlJZmtYUWQwVjRiSzlSR04wdzdBdk5obFRpSHI2QWxiWHlrSytvYVJZUHRkbXIiLCJtYWMiOiJhM2RjNmU1ZTU1NDVjMWM3YzQ2ODEwYWI2MjhkMzQ4MTQ4ZDkxMGQ3NzBlYzBmMWZlNDI4YmRmMzc4MDUxZDQ1IiwidGFnIjoiIn0%3D',
+        'Accept-Encoding': 'gzip, deflate, br',
+        'Connection': 'keep-alive',
+        'Accept': '*/*'
+      };
+
+      Response response = await dio.get(url, options: Options(headers: headers));
+
+      if (response.statusCode == 200) {
+        print(response.data);
+      } else {
+        print('Falha na requisição: ${response.statusCode}');
+      }
+    } catch (error) {
+      print('Erro na requisição: $error');
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    getCookie();
+    
+  }
   @override
   Widget build(BuildContext context) {
     final bodyPage = Container(
@@ -152,6 +245,9 @@ class _MyHomePageState extends State<MyHomePage> {
               children: [
                 ElevatedButton(
                   onPressed: () {
+                    String emailValue = email.text;
+                    String passwordValue = password.text;
+                    realizarLogin(emailValue, passwordValue);
                     Navigator.push(
                       context,
                       MaterialPageRoute(
@@ -222,6 +318,7 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
     );
     return Scaffold(
+      backgroundColor: Palette.WBColor.shade400,
       body: bodyPage,
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );

@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:worldbooks/read_capitulo.dart';
 import 'palletes/pallete.dart';
 import 'package:flutter/services.dart';
 import 'dart:convert';
 import 'livros.dart';
 import 'models/Livro.dart';
+import 'components/Sidebar.dart';
 
 class LivroDetalhes extends StatefulWidget {
   const LivroDetalhes({Key? key, required this.livro_id, required this.livro}) : super(key: key);
@@ -42,7 +44,12 @@ class _LivroDetalhesState extends State<LivroDetalhes> {
             icon: Icon(Icons.arrow_back, color: Color(0xffffffff)),
             onPressed: () => Navigator.of(context).pop(),
           ),
-          title: FutureBuilder<Map<String, dynamic>>(
+          title: _api2 == 1 ? 
+          Text(
+            '${widget.livro['titulo']}',
+            style: TextStyle(fontFamily: 'Ubuntu'),
+          )
+          : FutureBuilder<Map<String, dynamic>>(
             future: _futureBook, // a previously-obtained Future<String> or null
             builder: (context, snapshot) {
               if (snapshot.hasData) {
@@ -465,7 +472,16 @@ class _LivroDetalhesState extends State<LivroDetalhes> {
                                 Ink(
                                   child: InkWell(
                                     splashColor: Colors.purple.withAlpha(30),
-                                    onTap: () {},
+                                    onTap: () {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) => ReadChapter(
+                                            chapterId: capitulo['id'],
+                                          ),
+                                        ),
+                                      );
+                                    },
                                     child: ListTile(
                                       title: Text(
                                         "Capítulo ${index + 1}",
@@ -920,7 +936,16 @@ class _LivroDetalhesState extends State<LivroDetalhes> {
                                 Ink(
                                   child: InkWell(
                                     splashColor: Colors.purple.withAlpha(30),
-                                    onTap: () {},
+                                    onTap: () {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) => ReadChapter(
+                                            chapterId: capitulo['id'],
+                                          ),
+                                        ),
+                                      );
+                                    },
                                     child: ListTile(
                                       title: Text(
                                         "Capítulo ${index + 1}",
@@ -1001,7 +1026,8 @@ class _LivroDetalhesState extends State<LivroDetalhes> {
                 child: CircularProgressIndicator(),
               );
             },
-          ),
+        ),
+        endDrawer: Sidebar(),
       ),
     );
   }

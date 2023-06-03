@@ -20,6 +20,9 @@ dependencies:
   flutter:
     sdk: flutter
   intl: ^0.18.1
+  http: ^0.13.3
+  dio: ^4.0.0
+  flutter_html: ^2.1.0
 
 dev_dependencies:
   flutter_test:
