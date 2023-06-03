@@ -1,24 +1,29 @@
-# click_counter
+# worldsbook
 
-A new Flutter project created with https://flutlab.io
+<div align="center">
+	<img src="https://raw.githubusercontent.com/brunoserrate/worldsbook/main/wbweb/public/icons/wb_icon_alter.png" width="50%" alt="logo">
+</div>
 
-## Getting Started
+<p align="center">
+  <span>Português Brasileiro</span> |
+  <a href="./lang/english/README.md">English</a>
+</p>
 
-This project is a starting point for a Flutter application.
+<div align="center">
+</div>
 
-A few resources to get you started if this is your first Flutter project:
+O World Books é uma plataforma para compartilhar histórias e e-books entre diversos usuários.
+Dentro do sistema é possível ler e compartilhar a sua imaginação.
+Esta é a versão mobile utilizando Flutter.
 
-- https://flutter.dev/docs/get-started/codelab
-- https://flutter.dev/docs/cookbook
+## Instalação (WIP)
 
-For help getting started with Flutter, view our
-https://flutter.dev/docs, which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Inicializar (WIP)
 
-## Getting Started: FlutLab - Flutter Online IDE
+## Licença
 
-- How to use FlutLab? Please, view our https://flutlab.io/docs
-- Discover a marketplace of ready-to-use Flutter projects https://flutlab.io/widgetbay
-- Join the discussion and conversation on https://flutlab.io/residents
+Esse projeto está sobre a licença MIT.
 
-If you have some questions regarding FlutLab, you can ask on https://flutlab.io/faq
+## Participantes
+
+- [Laís de Assis Requena,](https://github.com/LAISRCROFT)

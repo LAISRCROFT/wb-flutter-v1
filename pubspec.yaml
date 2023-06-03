@@ -19,6 +19,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  http: ^0.13.6
   intl: ^0.18.1
 
 dev_dependencies:
@@ -67,6 +68,8 @@ flutter:
    - assets/images/categorias/ficcao_cientifica.png
    - assets/images/categorias/suspense.png
    - assets/images/categorias/drama.png
+   - assets/data/books_list_data.json
+   - assets/data/book_detailed_data.json
 
   #  AVATAR
    - assets/images/avatar/default.jpg
