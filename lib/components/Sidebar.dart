@@ -5,8 +5,33 @@ import 'package:worldbooks/main.dart';
 import '../palletes/pallete.dart';
 import 'dart:io';
 
-class Sidebar extends StatelessWidget {
-  const Sidebar({super.key});
+import '../global_data.dart';
+
+class _SidebarState extends State<Sidebar> {
+  bool _useDefaultImage = true;
+  String _fotoPerfil = "assets/images/avatar/default.jpg";
+
+  @override
+  void initState() {
+    super.initState();
+    _changeFotoPerfil();
+  }
+
+  void _changeFotoPerfil() async {
+    String fotoPerfil = await GlobalData.getFotoPerfil();
+    if (fotoPerfil != '') {
+      setState(() {
+        _fotoPerfil = fotoPerfil;
+        _useDefaultImage = false;
+      });
+    }
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Drawer(
@@ -19,13 +44,13 @@ class Sidebar extends StatelessWidget {
               shrinkWrap: true,
               padding: EdgeInsets.zero,
               children: [
-                const DrawerHeader(
+                DrawerHeader(
                   decoration: BoxDecoration(
                     color: Palette.WBColorShade50,
                   ),
                   child: Center(
                     child: CircleAvatar(
-                      backgroundImage: AssetImage('assets/images/avatar/default.jpg'),
+                      backgroundImage: _useDefaultImage ? AssetImage(_fotoPerfil) : Image.network(_fotoPerfil).image,
                       radius: 50,
                     ),
                   ),
@@ -117,4 +142,14 @@ class Sidebar extends StatelessWidget {
       ),
     );
   }
+
+}
+
+
+
+class Sidebar extends StatefulWidget {
+
+  @override
+  State<Sidebar> createState() => _SidebarState();
+
 }

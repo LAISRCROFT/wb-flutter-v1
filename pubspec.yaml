@@ -19,9 +19,12 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  http: ^0.13.6
   intl: ^0.18.1
-  http: ^0.13.3
-  dio: ^4.0.0
+  cookie_jar: ^4.0.3
+  dio: ^5.1.2
+  dio_cookie_manager: ^3.0.0
+  path_provider: ^2.0.15
   flutter_html: ^2.1.0
 
 dev_dependencies:
@@ -70,6 +73,8 @@ flutter:
    - assets/images/categorias/ficcao_cientifica.png
    - assets/images/categorias/suspense.png
    - assets/images/categorias/drama.png
+   - assets/data/books_list_data.json
+   - assets/data/book_detailed_data.json
 
   #  AVATAR
    - assets/images/avatar/default.jpg
