@@ -153,7 +153,7 @@ class _MyHomePageState extends State<MyHomePage> {
       Fluttertoast.showToast(
         msg: "API request failed! ${response.statusCode} ${response.statusMessage}",
         toastLength: Toast.LENGTH_SHORT,
-        gravity: ToastGravity.BOTTOM,
+        gravity: ToastGravity.TOP,
         backgroundColor: Colors.red,
         textColor: Colors.white,
       );

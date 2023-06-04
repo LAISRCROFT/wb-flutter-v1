@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:worldbooks/create_capitulo.dart';
 import 'package:worldbooks/global_data.dart';
 import '../palletes/pallete.dart';
@@ -66,8 +67,24 @@ class _ImageWidgetState extends State<ImageWidget> {
   Future<Map<String, dynamic>> getCategorias() async {
     Dio dio = Dio();
 
-    final response = await dio.get(
-        'https://worldbooks.serratedevs.com.br/wbcore/public/api/categoria');
+    var response = null;
+
+    try {
+      response = await dio.get(
+          'https://worldbooks.serratedevs.com.br/wbcore/public/api/categoria');
+    } on DioError catch (e) {
+      print(e.response!.data);
+      Fluttertoast.showToast(
+        msg:
+            "API request failed! ${e.response?.statusCode} ${e.response?.statusMessage}",
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.TOP,
+        backgroundColor: Colors.red,
+        textColor: Colors.white,
+      );
+      throw Exception(
+          'Erro ao carregar as categorias. Exception: ${e.response!.data}');
+    }
 
     return response.data;
   }
@@ -75,8 +92,24 @@ class _ImageWidgetState extends State<ImageWidget> {
   Future<Map<String, dynamic>> getIdiomas() async {
     Dio dio = Dio();
 
-    final response = await dio
-        .get('https://worldbooks.serratedevs.com.br/wbcore/public/api/idioma');
+    var response = null;
+
+    try {
+      response = await dio.get(
+          'https://worldbooks.serratedevs.com.br/wbcore/public/api/idioma');
+    } on DioError catch (e) {
+      print(e.response!.data);
+      Fluttertoast.showToast(
+        msg:
+            "API request failed! ${e.response?.statusCode} ${e.response?.statusMessage}",
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.TOP,
+        backgroundColor: Colors.red,
+        textColor: Colors.white,
+      );
+      throw Exception(
+          'Erro ao carregar os idiomas. Exception: ${e.response!.data}');
+    }
 
     return response.data;
   }
@@ -84,8 +117,24 @@ class _ImageWidgetState extends State<ImageWidget> {
   Future<Map<String, dynamic>> getDireitos() async {
     Dio dio = Dio();
 
-    final response = await dio.get(
-        'https://worldbooks.serratedevs.com.br/wbcore/public/api/direitos_autorais');
+    var response = null;
+
+    try {
+      response = await dio.get(
+          'https://worldbooks.serratedevs.com.br/wbcore/public/api/direitos_autorais');
+    } on DioError catch (e) {
+      print(e.response!.data);
+      Fluttertoast.showToast(
+        msg:
+            "API request failed! ${e.response?.statusCode} ${e.response?.statusMessage}",
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.TOP,
+        backgroundColor: Colors.red,
+        textColor: Colors.white,
+      );
+      throw Exception(
+          'Erro ao carregar os direitos autorais. Exception: ${e.response!.data}');
+    }
 
     return response.data;
   }
@@ -93,8 +142,24 @@ class _ImageWidgetState extends State<ImageWidget> {
   Future<Map<String, dynamic>> getPublicos() async {
     Dio dio = Dio();
 
-    final response = await dio.get(
-        'https://worldbooks.serratedevs.com.br/wbcore/public/api/publico_alvo');
+    var response = null;
+
+    try {
+      response = await dio.get(
+          'https://worldbooks.serratedevs.com.br/wbcore/public/api/publico_alvo');
+    } on DioError catch (e) {
+      print(e.response!.data);
+      Fluttertoast.showToast(
+        msg:
+            "API request failed! ${e.response?.statusCode} ${e.response?.statusMessage}",
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.TOP,
+        backgroundColor: Colors.red,
+        textColor: Colors.white,
+      );
+      throw Exception(
+          'Erro ao carregar o publico alvo. Exception: ${e.response!.data}');
+    }
 
     return response.data;
   }
@@ -251,46 +316,50 @@ class _ImageWidgetState extends State<ImageWidget> {
                 .toList(),
           ),
           const SizedBox(height: 16),
-          Flexible(
-            child: TextFormField(
-              controller: _chipTextController,
-              decoration: InputDecoration(
-                border: const OutlineInputBorder(),
-                labelText: 'Adicione as tags',
-                filled: true,
-                fillColor: Palette.Inputs.shade100,
-                labelStyle: TextStyle(color: Palette.Inputs.shade50),
-                focusedBorder: const OutlineInputBorder(
-                  borderSide: BorderSide(color: Color(0xffffffff), width: 1),
-                ),
-                enabledBorder: OutlineInputBorder(
-                  borderSide:
-                      BorderSide(color: Palette.Inputs.shade100, width: 1),
+          Row(
+            children: [
+              Flexible(
+                child: TextFormField(
+                  controller: _chipTextController,
+                  decoration: InputDecoration(
+                    border: const OutlineInputBorder(),
+                    labelText: 'Adicione as tags',
+                    filled: true,
+                    fillColor: Palette.Inputs.shade100,
+                    labelStyle: TextStyle(color: Palette.Inputs.shade50),
+                    focusedBorder: const OutlineInputBorder(
+                      borderSide: BorderSide(color: Color(0xffffffff), width: 1),
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                      borderSide:
+                          BorderSide(color: Palette.Inputs.shade100, width: 1),
+                    ),
+                  ),
+                  textInputAction: TextInputAction.go,
+                  style: const TextStyle(
+                    color:
+                        Colors.white, // Defina a cor do texto enquanto você escreve
+                  ),
+                  validator: (value) {
+                    if (_chipList.length == 0) {
+                      if (value == null || value.isEmpty) {
+                        return 'Adicione pelo menos uma tag';
+                      }
+                    }
+                    return null;
+                  },
+                  onFieldSubmitted: (value) {
+                    setState(() {
+                      _chipList.add(
+                        ChipModel(name: _chipTextController.text),
+                      );
+                      _chipTextController.text = '';
+                      // print("TAGS: $_chipList");
+                    });
+                  },
                 ),
               ),
-              textInputAction: TextInputAction.go,
-              style: const TextStyle(
-                color:
-                    Colors.white, // Defina a cor do texto enquanto você escreve
-              ),
-              validator: (value) {
-                if (_chipList.length == 0) {
-                  if (value == null || value.isEmpty) {
-                    return 'Adicione pelo menos uma tag';
-                  }
-                }
-                return null;
-              },
-              onFieldSubmitted: (value) {
-                setState(() {
-                  _chipList.add(
-                    ChipModel(name: _chipTextController.text),
-                  );
-                  _chipTextController.text = '';
-                  // print("TAGS: $_chipList");
-                });
-              },
-            ),
+            ],
           ),
 
           const SizedBox(height: 16),
@@ -607,7 +676,6 @@ class _ImageWidgetState extends State<ImageWidget> {
               ElevatedButton(
                 onPressed: () async {
                   if (_formKey.currentState?.validate() ?? false) {
-
                     Dio dio = Dio();
 
                     // Create an array of tags
@@ -623,8 +691,8 @@ class _ImageWidgetState extends State<ImageWidget> {
                         "conteudo_adulto": conteudo_adulto.text == ""
                             ? false
                             : conteudo_adulto.text == "true"
-                              ? true
-                              : false,
+                                ? true
+                                : false,
                         "data_atualizacao": "",
                         "data_criacao": "",
                         "descricao": descricao.text,
@@ -685,7 +753,10 @@ class _ImageWidgetState extends State<ImageWidget> {
                                           context,
                                           MaterialPageRoute(
                                             builder: (context) =>
-                                                CreateCapitulo(livro_id: response.data['data']['historia_id']),
+                                                CreateCapitulo(
+                                                    livro_id:
+                                                        response.data['data']
+                                                            ['historia_id']),
                                           ),
                                         );
                                       },
@@ -724,7 +795,8 @@ class _ImageWidgetState extends State<ImageWidget> {
                       );
                     } on DioError catch (e) {
                       // print(e.response!.data);
-                      throw Exception('Erro ao criar a história. Exception: ${e.response!.data}');
+                      throw Exception(
+                          'Erro ao criar a história. Exception: ${e.response!.data}');
                     }
 
                     // print("Status:  ${response.statusCode}");
