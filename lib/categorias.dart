@@ -1,19 +1,15 @@
-import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'dart:io';
-import 'palletes/pallete.dart';
-import 'models/Categorias.dart';
-import 'package:intl/intl.dart';
 import 'palletes/pallete.dart';
 import 'components/Sidebar.dart';
 import 'livros.dart';
-import 'package:flutter/services.dart';
-import 'dart:convert';
 
-final String background_defaut = 'assets/images/cat_cover.jpg';
+import 'package:dio/dio.dart';
+
+const String background_defaut = 'assets/images/cat_cover.jpg';
 
 class CategoriasList extends StatefulWidget {
+  const CategoriasList({super.key});
+
   @override
   State<CategoriasList> createState() => _CategoriasListState();
 }
@@ -24,19 +20,16 @@ class _CategoriasListState extends State<CategoriasList> {
   Object? get livroId => null;
 
   Future<Map<String, dynamic>> getCategorias() async {
-    final String response =
-        await rootBundle.loadString('assets/data/categoria_data.json');
+    Dio dio = Dio();
 
-    return jsonDecode(response);
+    final response = await dio.get('https://worldbooks.serratedevs.com.br/wbcore/public/api/categoria');
 
-    // final response = await http.get(
-    //     Uri.parse('http://worldbooks.serratedevs.com.br/wbcore/public/api/categoria'));
+    if (response.statusCode == 200) {
 
-    // if (response.statusCode == 200) {
-    //   return jsonDecode(response.body);
-    // } else {
-    //   throw Exception('Erro ao carregar os livros');
-    // }
+      return response.data;
+    } else {
+      throw Exception('Erro ao carregar os livros');
+    }
   }
 
   @override
@@ -55,7 +48,7 @@ class _CategoriasListState extends State<CategoriasList> {
           centerTitle: true,
           backgroundColor: Palette.WBColor.shade50,
           elevation: 0,
-          title: Text(
+          title: const Text(
             'CATEGORIAS',
             style: TextStyle(fontFamily: 'Ubuntu'),
           ),
@@ -67,8 +60,10 @@ class _CategoriasListState extends State<CategoriasList> {
             if (snapshot.hasData) {
               List<dynamic> categorias = snapshot.data!['data'];
 
+              // print("Categorias : "+ categorias.toString()) ;
+
               if (categorias.isEmpty) {
-                return Center(
+                return const Center(
                   child: Text('Nenhuma categoria encontrada'),
                 );
               }
@@ -82,7 +77,7 @@ class _CategoriasListState extends State<CategoriasList> {
                   return Card(
                     color: Colors.transparent,
                     elevation: 0,
-                    margin: EdgeInsets.symmetric(vertical: 8, horizontal: 8),
+                    margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 8),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10),
                     ),
@@ -91,10 +86,8 @@ class _CategoriasListState extends State<CategoriasList> {
                         borderRadius: BorderRadius.circular(10),
                         border: Border.all(color: Palette.WBColor.shade200),
                         image: DecorationImage(
-                          image: AssetImage(categoria['bg_path_mobile'] != null
-                              ? categoria['bg_path_mobile']
-                              : background_defaut),
-                          colorFilter: new ColorFilter.mode(
+                          image: AssetImage(categoria['bg_path_mobile'] ?? background_defaut),
+                          colorFilter: ColorFilter.mode(
                               Colors.black.withOpacity(0), BlendMode.dstATop),
                           fit: BoxFit.cover,
                         ),
@@ -143,7 +136,7 @@ class _CategoriasListState extends State<CategoriasList> {
             );
           },
         ),
-        endDrawer: Sidebar(),
+        endDrawer: const Sidebar(),
       ),
     );
   }

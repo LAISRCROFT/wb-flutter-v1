@@ -1,19 +1,14 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:worldbooks/categorias.dart';
 import '../palletes/pallete.dart';
-import 'package:flutter/services.dart';
 import 'components/Sidebar.dart';
-import 'models/Categorias.dart';
-import 'dart:io';
-import 'package:flutter/services.dart';
-import 'package:http/http.dart' as http;
-import 'dart:convert';
 import 'package:flutter_html/flutter_html.dart';
 
 class ReadChapter extends StatefulWidget {
   const ReadChapter({Key? key, required this.chapterId}) : super(key: key);
 
   final int chapterId;
+  @override
   _ReadChapterState createState() => _ReadChapterState();
 }
 
@@ -40,7 +35,7 @@ class _ReadChapterState extends State<ReadChapter> {
           backgroundColor: Palette.WBColor.shade50,
           elevation: 0,
           leading: IconButton(
-            icon: Icon(Icons.arrow_back, color: Color(0xffffffff)),
+            icon: const Icon(Icons.arrow_back, color: Color(0xffffffff)),
             onPressed: () => Navigator.of(context).pop(),
           ),
         ),
@@ -50,12 +45,15 @@ class _ReadChapterState extends State<ReadChapter> {
             if (snapshot.hasData) {
               Map<String, dynamic> chapter = snapshot.data!['data'];
 
-              chapter['capitulo'] = '<p class="estilo-padrao" style="color: ${Colors.white} !important">${chapter['capitulo']}<p>';
+              chapter['capitulo'] =
+                  '<p class="estilo-padrao" style="color: ${Colors.white} !important">${chapter['capitulo']}<p>';
 
               String texto = "color: rgb(45, 55, 72)";
-              RegExp padrao = RegExp(r"rgb\(\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)\s*\)");
+              RegExp padrao =
+                  RegExp(r"rgb\(\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)\s*\)");
 
-              chapter['capitulo'] = chapter['capitulo'].replaceAllMapped(padrao, (match) {
+              chapter['capitulo'] =
+                  chapter['capitulo'].replaceAllMapped(padrao, (match) {
                 return "rgb (255, 255, 255)";
               });
 
@@ -83,32 +81,33 @@ class _ReadChapterState extends State<ReadChapter> {
                             height: MediaQuery.of(context).size.height * 0.3,
                             color: Colors.grey, // Cor de fundo da imagem vazia
                             child: imageUrl.isNotEmpty
-                            ? Image.network(
-                                imageUrl,
-                                fit: BoxFit.cover,
-                              )
-                            : Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [Icon(Icons.photo_camera)],
-                              ),
+                                ? Image.network(
+                                    imageUrl,
+                                    fit: BoxFit.cover,
+                                  )
+                                : const Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    children: [Icon(Icons.photo_camera)],
+                                  ),
                           ),
                         ],
                       ),
-                      SizedBox(height: 22),
+                      const SizedBox(height: 22),
                       Align(
                         alignment: Alignment.center,
-                        child: Text(chapter['titulo'],
+                        child: Text(
+                          chapter['titulo'],
                           textAlign: TextAlign.center,
                           style: TextStyle(
-                              color: Palette.WBColor.shade800, 
+                              color: Palette.WBColor.shade800,
                               fontSize: 20,
                               fontFamily: 'Ubuntu',
-                              fontWeight: FontWeight.bold
-                          ),
+                              fontWeight: FontWeight.bold),
                         ),
                       ),
-                      SizedBox(height: 22),
+                      const SizedBox(height: 22),
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 15),
                         child: Html(
@@ -127,7 +126,7 @@ class _ReadChapterState extends State<ReadChapter> {
                           },
                         ),
                       ),
-                      SizedBox(height: 22),
+                      const SizedBox(height: 22),
                     ]),
               );
             } else if (snapshot.hasError) {
@@ -139,7 +138,7 @@ class _ReadChapterState extends State<ReadChapter> {
             );
           },
         ),
-        endDrawer: Sidebar(),
+        endDrawer: const Sidebar(),
       ),
     );
   }
@@ -152,12 +151,13 @@ class ChapterService {
 
     // return jsonDecode(response);
 
-    final response = await http.get(Uri.parse(
-        'https://worldbooks.serratedevs.com.br/wbcore/public/api/capitulo/$bookId'));
+    Dio dio = Dio();
+
+    final response = await dio.get(
+        'https://worldbooks.serratedevs.com.br/wbcore/public/api/capitulo/$bookId');
 
     if (response.statusCode == 200) {
-      print('Response: ${jsonDecode(response.body)}');
-      return jsonDecode(response.body);
+      return response.data;
     } else {
       throw Exception('Erro ao carregar o livro');
     }

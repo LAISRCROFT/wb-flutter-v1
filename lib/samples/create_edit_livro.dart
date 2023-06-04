@@ -8,11 +8,11 @@
 // https://github.com/brunoserrate/worldsbook/blob/main/wbweb/src/pages/criar_capitulo.vue
 // https://github.com/brunoserrate/worldsbook/blob/main/wbweb/src/pages/editar_capitulo.vue
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 
 class CreateEditLivros extends StatefulWidget {
+  const CreateEditLivros({super.key});
+
   @override
   _CreateEditLivrosState createState() => _CreateEditLivrosState();
 }
@@ -22,21 +22,21 @@ class _CreateEditLivrosState extends State<CreateEditLivros> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Criar capítulo"),
+        title: const Text("Criar capítulo"),
         actions: [
           IconButton(
-            icon: Icon(Icons.check),
+            icon: const Icon(Icons.check),
             onPressed: () {},
           ),
           IconButton(
-            icon: Icon(Icons.close),
+            icon: const Icon(Icons.close),
             onPressed: () {},
           ),
         ],
       ),
       body: Container(
-        padding: EdgeInsets.all(10),
-        child: Column(
+        padding: const EdgeInsets.all(10),
+        child: const Column(
           children: [
             TextField(
               decoration: InputDecoration(

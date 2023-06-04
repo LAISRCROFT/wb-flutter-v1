@@ -3,7 +3,6 @@ import 'package:worldbooks/categorias.dart';
 import 'package:worldbooks/create_livro.dart';
 import 'package:worldbooks/main.dart';
 import '../palletes/pallete.dart';
-import 'dart:io';
 
 import '../global_data.dart';
 
@@ -18,7 +17,7 @@ class _SidebarState extends State<Sidebar> {
   }
 
   void _changeFotoPerfil() async {
-    String fotoPerfil = await GlobalData.getFotoPerfil();
+    String fotoPerfil = GlobalData.getFotoPerfil();
     if (fotoPerfil != '') {
       setState(() {
         _fotoPerfil = fotoPerfil;
@@ -45,7 +44,7 @@ class _SidebarState extends State<Sidebar> {
               padding: EdgeInsets.zero,
               children: [
                 DrawerHeader(
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                     color: Palette.WBColorShade50,
                   ),
                   child: Center(
@@ -73,17 +72,17 @@ class _SidebarState extends State<Sidebar> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => CategoriasList(),
+                        builder: (context) => const CategoriasList(),
                       ),
                     );
                   },
                 ),
-                SizedBox(height: 2), // Espaçamento entre os itens
-                Divider(
+                const SizedBox(height: 2), // Espaçamento entre os itens
+                const Divider(
                   thickness: 1,
                   color: Colors.grey,
                 ),
-                SizedBox(height: 2),
+                const SizedBox(height: 2),
                 ListTile(
                   contentPadding: EdgeInsets.fromLTRB(MediaQuery.of(context).size.width * 0.12, 0, 0, 0),
                   leading: Icon(
@@ -102,7 +101,7 @@ class _SidebarState extends State<Sidebar> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => CreateLivro(),
+                        builder: (context) => const CreateLivro(),
                       ),
                     );
                   },
@@ -110,17 +109,17 @@ class _SidebarState extends State<Sidebar> {
               ],
             ),
           ),
-          Divider(
+          const Divider(
             thickness: 1,
             color: Colors.grey,
           ),
           ListTile(
             contentPadding: EdgeInsets.fromLTRB(MediaQuery.of(context).size.width * 0.19, 0, 0, 0),
-            leading: Icon(
+            leading: const Icon(
               Icons.logout,
               color: Color(0xfff98d85),
             ),
-            title: Text(
+            title: const Text(
               'LOGOUT',
               style: TextStyle(
                 fontFamily: 'Ubuntu',
@@ -133,7 +132,7 @@ class _SidebarState extends State<Sidebar> {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => Login(),
+                  builder: (context) => const Login(),
                 ),
               );
             },
@@ -148,6 +147,8 @@ class _SidebarState extends State<Sidebar> {
 
 
 class Sidebar extends StatefulWidget {
+  const Sidebar({super.key});
+
 
   @override
   State<Sidebar> createState() => _SidebarState();

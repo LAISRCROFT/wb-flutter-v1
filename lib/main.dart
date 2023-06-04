@@ -1,4 +1,3 @@
-import 'dart:convert';
 // import 'dart:html';
 import 'package:flutter/material.dart';
 import 'dart:io';
@@ -26,8 +25,8 @@ class Login extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       initialRoute: '/',
       routes: {
-        '/': (context) => MyHomePage(),
-        '/categorias': (context) => CategoriasList(),
+        '/': (context) => const MyHomePage(),
+        '/categorias': (context) => const CategoriasList(),
       },
       // home: MyHomePage(),
       theme: ThemeData(
@@ -42,13 +41,15 @@ class Login extends StatelessWidget {
               ),
             ),
         //Exemplo de estilo aplicado themeData para appBars
-        appBarTheme: AppBarTheme(),
+        appBarTheme: const AppBarTheme(),
       ),
     );
   }
 }
 
 class MyHomePage extends StatefulWidget {
+  const MyHomePage({super.key});
+
   @override
   State<MyHomePage> createState() => _MyHomePageState();
 }
@@ -71,7 +72,7 @@ class _MyHomePageState extends State<MyHomePage> {
     final String appDocPath = appDocDir.path;
     final jar = PersistCookieJar(
       ignoreExpires: true,
-      storage: FileStorage(appDocPath + "/.cookies/"),
+      storage: FileStorage("$appDocPath/.cookies/"),
     );
     dio.interceptors.add(CookieManager(jar));
 
@@ -100,8 +101,10 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   Future<void> _login() async {
-    final emailFinal = email.text;
-    final passwordFinal = password.text;
+    // final emailFinal = email.text;
+    // final passwordFinal = password.text;
+    const emailFinal = "lais.requena@uni9.edu.br";
+    const passwordFinal = "Dama@0904";
 
     await _fetchXsrfToken();
 
@@ -123,7 +126,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
       final data = response.data;
 
-      print(data);
+      // print(data);
 
       GlobalData.setUserId(data['data']['user_id']);
       GlobalData.setName(data['data']['name']);
@@ -136,7 +139,7 @@ class _MyHomePageState extends State<MyHomePage> {
       Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (context) => CategoriasList(),
+          builder: (context) => const CategoriasList(),
         ),
       );
     } else {
@@ -161,7 +164,7 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     final bodyPage = Container(
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
         image: DecorationImage(
           image: AssetImage("assets/images/layered-waves-haikei-3.png"),
           fit: BoxFit.cover,
@@ -221,7 +224,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   width: 10,
                   child: TextField(
                     controller: email,
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                       border: OutlineInputBorder(),
                       labelText: 'E-mail',
                       filled: true,
@@ -243,7 +246,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   child: TextField(
                     controller: password,
                     obscureText: true,
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                       border: OutlineInputBorder(),
                       labelText: 'Password',
                       filled: true,
@@ -261,7 +264,6 @@ class _MyHomePageState extends State<MyHomePage> {
                     onPressed: () {
                       _login();
                     },
-                    child: Text("Entrar"),
                     style: ButtonStyle(
                       elevation: MaterialStateProperty.all(0),
                       maximumSize:
@@ -274,10 +276,10 @@ class _MyHomePageState extends State<MyHomePage> {
                         const TextStyle(fontFamily: 'Ubuntu'),
                       ),
                     ),
+                    child: const Text("Entrar"),
                   ),
                   TextButton(
                     onPressed: () {},
-                    child: const Text("Esqueci  a senha"),
                     style: TextButton.styleFrom(
                       elevation: 0,
                       minimumSize: const Size(88, 36),
@@ -286,6 +288,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         fontFamily: 'Ubuntu',
                       ),
                     ),
+                    child: const Text("Esqueci  a senha"),
                   ),
                 ],
               ),

@@ -1,7 +1,6 @@
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.worldbooks">
-   <application
-        android:label="worldbooks"
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+    <application
+        android:label="wb_flutter"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

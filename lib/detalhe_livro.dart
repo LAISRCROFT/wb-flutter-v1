@@ -1,10 +1,7 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:worldbooks/read_capitulo.dart';
 import 'palletes/pallete.dart';
-import 'package:flutter/services.dart';
-import 'dart:convert';
-import 'livros.dart';
-import 'models/Livro.dart';
 import 'components/Sidebar.dart';
 
 class LivroDetalhes extends StatefulWidget {
@@ -12,13 +9,14 @@ class LivroDetalhes extends StatefulWidget {
 
   final int livro_id;
   final Map<String, dynamic> livro;
+  @override
   _LivroDetalhesState createState() => _LivroDetalhesState();
 }
 
 class _LivroDetalhesState extends State<LivroDetalhes> {
   final BookService _bookService = BookService();
   late Future<Map<String, dynamic>> _futureBook;
-  final bool? _api = true;
+  final bool _api = true;
   final int _api2 = 1;
   
 
@@ -26,7 +24,7 @@ class _LivroDetalhesState extends State<LivroDetalhes> {
   void initState() {
     super.initState();
     _futureBook = _bookService.getBook(widget.livro_id);
-    print('livro: ${widget.livro}');
+    // print('livro: ${widget.livro}');
   }
 
   @override
@@ -41,13 +39,13 @@ class _LivroDetalhesState extends State<LivroDetalhes> {
           automaticallyImplyLeading: true,
           backgroundColor: Palette.WBColor.shade50,
           leading: IconButton(
-            icon: Icon(Icons.arrow_back, color: Color(0xffffffff)),
+            icon: const Icon(Icons.arrow_back, color: Color(0xffffffff)),
             onPressed: () => Navigator.of(context).pop(),
           ),
           title: _api2 == 1 ? 
           Text(
             '${widget.livro['titulo']}',
-            style: TextStyle(fontFamily: 'Ubuntu'),
+            style: const TextStyle(fontFamily: 'Ubuntu'),
           )
           : FutureBuilder<Map<String, dynamic>>(
             future: _futureBook, // a previously-obtained Future<String> or null
@@ -57,7 +55,7 @@ class _LivroDetalhesState extends State<LivroDetalhes> {
 
                 return Text(
                   '${book['titulo']}',
-                  style: TextStyle(fontFamily: 'Ubuntu'),
+                  style: const TextStyle(fontFamily: 'Ubuntu'),
                 );
               } else if (snapshot.hasError) {
                 return Text('${snapshot.error}');
@@ -77,11 +75,11 @@ class _LivroDetalhesState extends State<LivroDetalhes> {
               padding: EdgeInsets.zero,
               scrollDirection: Axis.vertical,
               children: [
-                SizedBox(height: 16),
+                const SizedBox(height: 16),
                 Align(
-                  alignment: AlignmentDirectional(-1, -0.1),
+                  alignment: const AlignmentDirectional(-1, -0.1),
                   child: ClipRRect(
-                    borderRadius: BorderRadius.only(
+                    borderRadius: const BorderRadius.only(
                       bottomLeft: Radius.circular(8),
                       bottomRight: Radius.circular(8),
                       topLeft: Radius.circular(0),
@@ -107,13 +105,13 @@ class _LivroDetalhesState extends State<LivroDetalhes> {
                   ],
                 ),
                 Align(
-                  alignment: AlignmentDirectional(-0.1, 0),
+                  alignment: const AlignmentDirectional(-0.1, 0),
                   child: Row(
                     mainAxisSize: MainAxisSize.max,
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       Align(
-                        alignment: AlignmentDirectional(0, 0.05),
+                        alignment: const AlignmentDirectional(0, 0.05),
                         child: Column(
                           mainAxisSize: MainAxisSize.max,
                           mainAxisAlignment: MainAxisAlignment.start,
@@ -123,7 +121,7 @@ class _LivroDetalhesState extends State<LivroDetalhes> {
                               mainAxisAlignment: MainAxisAlignment.spaceAround,
                               children: [
                                 Align(
-                                  alignment: AlignmentDirectional(-0.05, 0),
+                                  alignment: const AlignmentDirectional(-0.05, 0),
                                   child: Icon(
                                     Icons.visibility,
                                     size: 24,
@@ -131,7 +129,7 @@ class _LivroDetalhesState extends State<LivroDetalhes> {
                                   ),
                                 ),
                                 Align(
-                                  alignment: AlignmentDirectional(0.05, 0.05),
+                                  alignment: const AlignmentDirectional(0.05, 0.05),
                                   child: SelectionArea(
                                     child: Text(
                                       (widget.livro['total_visualizacoes']).toString(),
@@ -165,7 +163,7 @@ class _LivroDetalhesState extends State<LivroDetalhes> {
                                 color: Palette.WBColor.shade200,
                               ),
                               Align(
-                                alignment: AlignmentDirectional(0.05, 0.05),
+                                alignment: const AlignmentDirectional(0.05, 0.05),
                                 child: SelectionArea(
                                   child: Text(
                                     (widget.livro['total_votos']).toString(),
@@ -196,7 +194,7 @@ class _LivroDetalhesState extends State<LivroDetalhes> {
                                 size: 24,
                               ),
                               Align(
-                                alignment: AlignmentDirectional(0.05, 0.05),
+                                alignment: const AlignmentDirectional(0.05, 0.05),
                                 child: SelectionArea(
                                   child: Text(
                                     (widget.livro['total_capitulos']).toString(),
@@ -217,9 +215,9 @@ class _LivroDetalhesState extends State<LivroDetalhes> {
                     ],
                   ),
                 ),
-                SizedBox(height: 16),
+                const SizedBox(height: 16),
                 Align(
-                  alignment: AlignmentDirectional(0, 0),
+                  alignment: const AlignmentDirectional(0, 0),
                   child: Row(
                     mainAxisSize: MainAxisSize.max,
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -228,23 +226,22 @@ class _LivroDetalhesState extends State<LivroDetalhes> {
                         onPressed: () {
                           print('Button pressed ...');
                         },
-                        label: Text("INICIAR LEITURA"),
-                        icon: Icon(
+                        label: const Text("INICIAR LEITURA"),
+                        icon: const Icon(
                           Icons.menu_book_sharp,
                           size: 15,
                         ),
                         style: ElevatedButton.styleFrom(
                           minimumSize: Size(
-                              MediaQuery.of(context).size.width - 100, 40),
+                              MediaQuery.of(context).size.width - 100, 40), backgroundColor: Palette.WBColor.shade50,
                           padding:
-                              EdgeInsetsDirectional.fromSTEB(24, 0, 24, 0),
-                          primary: Palette.WBColor.shade50,
-                          textStyle: TextStyle(
+                              const EdgeInsetsDirectional.fromSTEB(24, 0, 24, 0),
+                          textStyle: const TextStyle(
                             fontFamily: 'Ubuntu',
                             color: Colors.white,
                           ),
                           elevation: 0,
-                          shape: RoundedRectangleBorder(
+                          shape: const RoundedRectangleBorder(
                             borderRadius: BorderRadius.only(
                               bottomLeft: Radius.circular(8),
                               bottomRight: Radius.circular(0),
@@ -255,12 +252,12 @@ class _LivroDetalhesState extends State<LivroDetalhes> {
                         ),
                       ),
                       Align(
-                        alignment: AlignmentDirectional(-0.2, -0.1),
+                        alignment: const AlignmentDirectional(-0.2, -0.1),
                         child: Ink(
                           decoration: BoxDecoration(
                             // border: Border.all(width: 0),
                             color: Palette.WBColor.shade50,
-                            borderRadius: BorderRadius.only(
+                            borderRadius: const BorderRadius.only(
                               bottomLeft: Radius.circular(0),
                               bottomRight: Radius.circular(8),
                               topLeft: Radius.circular(0),
@@ -270,7 +267,7 @@ class _LivroDetalhesState extends State<LivroDetalhes> {
                           child: InkWell(
                             onTap: () {},
                             child: Padding(
-                              padding: EdgeInsets.fromLTRB(10, 5, 10, 5),
+                              padding: const EdgeInsets.fromLTRB(10, 5, 10, 5),
                               child: Icon(
                                 Icons.add,
                                 color: Palette.WBColor.shade600,
@@ -283,7 +280,7 @@ class _LivroDetalhesState extends State<LivroDetalhes> {
                     ],
                   ),
                 ),
-                SizedBox(height: 12),
+                const SizedBox(height: 12),
                 Row(
                   mainAxisSize: MainAxisSize.max,
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -303,7 +300,7 @@ class _LivroDetalhesState extends State<LivroDetalhes> {
                               borderRadius: BorderRadius.circular(8),
                             ),
                             alignment:
-                                AlignmentDirectional(0, 0.3999999999999999),
+                                const AlignmentDirectional(0, 0.3999999999999999),
                             child: Text(
                               widget.livro['historia_finalizada'] == 0
                                   ? 'Concluída'
@@ -325,7 +322,7 @@ class _LivroDetalhesState extends State<LivroDetalhes> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Align(
-                          alignment: AlignmentDirectional(0.4, 0),
+                          alignment: const AlignmentDirectional(0.4, 0),
                           child: ClipRRect(
                             borderRadius: BorderRadius.circular(8),
                             child: Container(
@@ -335,7 +332,7 @@ class _LivroDetalhesState extends State<LivroDetalhes> {
                                 color: Palette.WBColor.shade50,
                                 borderRadius: BorderRadius.circular(8),
                               ),
-                              alignment: AlignmentDirectional(
+                              alignment: const AlignmentDirectional(
                                   -0.19999999999999996, 0.3999999999999999),
                               child: Text(
                                 widget.livro['conteudo_adulto'] == 0
@@ -356,7 +353,7 @@ class _LivroDetalhesState extends State<LivroDetalhes> {
                     ),
                   ],
                 ),
-                SizedBox(height: 12),
+                const SizedBox(height: 12),
                 Row(
                   mainAxisSize: MainAxisSize.max,
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -370,13 +367,13 @@ class _LivroDetalhesState extends State<LivroDetalhes> {
                     ),
                   ],
                 ),
-                SizedBox(height: 9),
+                const SizedBox(height: 9),
                 Row(
                   mainAxisSize: MainAxisSize.max,
                   children: [
                     Flexible(
                       child: Align(
-                        alignment: AlignmentDirectional(0, 0),
+                        alignment: const AlignmentDirectional(0, 0),
                         child: Padding(
                           padding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
                           child: Text(
@@ -393,7 +390,7 @@ class _LivroDetalhesState extends State<LivroDetalhes> {
                     ),
                   ],
                 ),
-                SizedBox(height: 12),
+                const SizedBox(height: 12),
                 Row(
                   mainAxisSize: MainAxisSize.max,
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -416,7 +413,7 @@ class _LivroDetalhesState extends State<LivroDetalhes> {
                     ),
                   ],
                 ),
-                SizedBox(height: 12),
+                const SizedBox(height: 12),
                 Align(
                   alignment: Alignment.center,
                   child: Wrap(
@@ -429,7 +426,7 @@ class _LivroDetalhesState extends State<LivroDetalhes> {
                         return Chip(
                           label: Text(tag),
                           backgroundColor: Palette.WBColor.shade700,
-                          labelStyle: TextStyle(
+                          labelStyle: const TextStyle(
                             fontFamily: 'Ubuntu',
                             fontSize: 12,
                           ),
@@ -438,14 +435,14 @@ class _LivroDetalhesState extends State<LivroDetalhes> {
                     ),
                   ),
                 ),
-                SizedBox(height: 20),
+                const SizedBox(height: 20),
                 Container(
                   width: 100,
                   height: 28,
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                     // color: FlutterFlowTheme.of(context).secondaryBackground,
                   ),
-                  alignment: AlignmentDirectional(0, 0.050000000000000044),
+                  alignment: const AlignmentDirectional(0, 0.050000000000000044),
                   child: Text(
                     'ÍNDICE',
                     style: TextStyle(
@@ -513,7 +510,7 @@ class _LivroDetalhesState extends State<LivroDetalhes> {
                           },
                         )
                       : [
-                          SizedBox(height: 15),
+                          const SizedBox(height: 15),
                           Text(
                             "Essa história não possui capítulos",
                             style: TextStyle(
@@ -521,7 +518,7 @@ class _LivroDetalhesState extends State<LivroDetalhes> {
                               fontSize: 15,
                             ),
                           ),
-                          SizedBox(height: 20),
+                          const SizedBox(height: 20),
                         ],
                 ),
               ],
@@ -541,9 +538,9 @@ class _LivroDetalhesState extends State<LivroDetalhes> {
                     scrollDirection: Axis.vertical,
                     children: [
                       Align(
-                        alignment: AlignmentDirectional(-1, -0.1),
+                        alignment: const AlignmentDirectional(-1, -0.1),
                         child: ClipRRect(
-                          borderRadius: BorderRadius.only(
+                          borderRadius: const BorderRadius.only(
                             bottomLeft: Radius.circular(8),
                             bottomRight: Radius.circular(8),
                             topLeft: Radius.circular(0),
@@ -567,13 +564,13 @@ class _LivroDetalhesState extends State<LivroDetalhes> {
                         ],
                       ),
                       Align(
-                        alignment: AlignmentDirectional(-0.1, 0),
+                        alignment: const AlignmentDirectional(-0.1, 0),
                         child: Row(
                           mainAxisSize: MainAxisSize.max,
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
                             Align(
-                              alignment: AlignmentDirectional(0, 0.05),
+                              alignment: const AlignmentDirectional(0, 0.05),
                               child: Column(
                                 mainAxisSize: MainAxisSize.max,
                                 mainAxisAlignment: MainAxisAlignment.start,
@@ -583,7 +580,7 @@ class _LivroDetalhesState extends State<LivroDetalhes> {
                                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                                     children: [
                                       Align(
-                                        alignment: AlignmentDirectional(-0.05, 0),
+                                        alignment: const AlignmentDirectional(-0.05, 0),
                                         child: Icon(
                                           Icons.visibility,
                                           size: 24,
@@ -591,7 +588,7 @@ class _LivroDetalhesState extends State<LivroDetalhes> {
                                         ),
                                       ),
                                       Align(
-                                        alignment: AlignmentDirectional(0.05, 0.05),
+                                        alignment: const AlignmentDirectional(0.05, 0.05),
                                         child: SelectionArea(
                                           child: Text(
                                             (book['total_visualizacoes']).toString(),
@@ -625,7 +622,7 @@ class _LivroDetalhesState extends State<LivroDetalhes> {
                                       color: Palette.WBColor.shade200,
                                     ),
                                     Align(
-                                      alignment: AlignmentDirectional(0.05, 0.05),
+                                      alignment: const AlignmentDirectional(0.05, 0.05),
                                       child: SelectionArea(
                                         child: Text(
                                           (book['total_votos']).toString(),
@@ -656,7 +653,7 @@ class _LivroDetalhesState extends State<LivroDetalhes> {
                                       size: 24,
                                     ),
                                     Align(
-                                      alignment: AlignmentDirectional(0.05, 0.05),
+                                      alignment: const AlignmentDirectional(0.05, 0.05),
                                       child: SelectionArea(
                                         child: Text(
                                           (book['total_capitulos']).toString(),
@@ -677,9 +674,9 @@ class _LivroDetalhesState extends State<LivroDetalhes> {
                           ],
                         ),
                       ),
-                      SizedBox(height: 16),
+                      const SizedBox(height: 16),
                       Align(
-                        alignment: AlignmentDirectional(0, 0),
+                        alignment: const AlignmentDirectional(0, 0),
                         child: Row(
                           mainAxisSize: MainAxisSize.max,
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -688,18 +685,17 @@ class _LivroDetalhesState extends State<LivroDetalhes> {
                               onPressed: () {
                                 print('Button pressed ...');
                               },
-                              label: Text("INICIAR LEITURA"),
-                              icon: Icon(
+                              label: const Text("INICIAR LEITURA"),
+                              icon: const Icon(
                                 Icons.menu_book_sharp,
                                 size: 15,
                               ),
                               style: ElevatedButton.styleFrom(
                                 minimumSize: Size(
-                                    MediaQuery.of(context).size.width - 100, 40),
+                                    MediaQuery.of(context).size.width - 100, 40), backgroundColor: Palette.WBColor.shade50,
                                 padding:
-                                    EdgeInsetsDirectional.fromSTEB(24, 0, 24, 0),
-                                primary: Palette.WBColor.shade50,
-                                textStyle: TextStyle(
+                                    const EdgeInsetsDirectional.fromSTEB(24, 0, 24, 0),
+                                textStyle: const TextStyle(
                                   fontFamily: 'Ubuntu',
                                   color: Colors.white,
                                 ),
@@ -708,7 +704,7 @@ class _LivroDetalhesState extends State<LivroDetalhes> {
                                 //   color: Colors.transparent,
                                 //   width: 1,
                                 // ),
-                                shape: RoundedRectangleBorder(
+                                shape: const RoundedRectangleBorder(
                                   borderRadius: BorderRadius.only(
                                     bottomLeft: Radius.circular(8),
                                     bottomRight: Radius.circular(0),
@@ -719,12 +715,12 @@ class _LivroDetalhesState extends State<LivroDetalhes> {
                               ),
                             ),
                             Align(
-                              alignment: AlignmentDirectional(-0.2, -0.1),
+                              alignment: const AlignmentDirectional(-0.2, -0.1),
                               child: Ink(
                                 decoration: BoxDecoration(
                                   // border: Border.all(width: 0),
                                   color: Palette.WBColor.shade50,
-                                  borderRadius: BorderRadius.only(
+                                  borderRadius: const BorderRadius.only(
                                     bottomLeft: Radius.circular(0),
                                     bottomRight: Radius.circular(8),
                                     topLeft: Radius.circular(0),
@@ -734,7 +730,7 @@ class _LivroDetalhesState extends State<LivroDetalhes> {
                                 child: InkWell(
                                   onTap: () {},
                                   child: Padding(
-                                    padding: EdgeInsets.fromLTRB(10, 5, 10, 5),
+                                    padding: const EdgeInsets.fromLTRB(10, 5, 10, 5),
                                     child: Icon(
                                       Icons.add,
                                       color: Palette.WBColor.shade600,
@@ -747,7 +743,7 @@ class _LivroDetalhesState extends State<LivroDetalhes> {
                           ],
                         ),
                       ),
-                      SizedBox(height: 12),
+                      const SizedBox(height: 12),
                       Row(
                         mainAxisSize: MainAxisSize.max,
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -767,7 +763,7 @@ class _LivroDetalhesState extends State<LivroDetalhes> {
                                     borderRadius: BorderRadius.circular(8),
                                   ),
                                   alignment:
-                                      AlignmentDirectional(0, 0.3999999999999999),
+                                      const AlignmentDirectional(0, 0.3999999999999999),
                                   child: Text(
                                     book['historia_finalizada']
                                         ? 'Concluída'
@@ -789,7 +785,7 @@ class _LivroDetalhesState extends State<LivroDetalhes> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Align(
-                                alignment: AlignmentDirectional(0.4, 0),
+                                alignment: const AlignmentDirectional(0.4, 0),
                                 child: ClipRRect(
                                   borderRadius: BorderRadius.circular(8),
                                   child: Container(
@@ -799,7 +795,7 @@ class _LivroDetalhesState extends State<LivroDetalhes> {
                                       color: Palette.WBColor.shade50,
                                       borderRadius: BorderRadius.circular(8),
                                     ),
-                                    alignment: AlignmentDirectional(
+                                    alignment: const AlignmentDirectional(
                                         -0.19999999999999996, 0.3999999999999999),
                                     child: Text(
                                       book['conteudo_adulto']
@@ -820,7 +816,7 @@ class _LivroDetalhesState extends State<LivroDetalhes> {
                           ),
                         ],
                       ),
-                      SizedBox(height: 12),
+                      const SizedBox(height: 12),
                       Row(
                         mainAxisSize: MainAxisSize.max,
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -834,13 +830,13 @@ class _LivroDetalhesState extends State<LivroDetalhes> {
                           ),
                         ],
                       ),
-                      SizedBox(height: 9),
+                      const SizedBox(height: 9),
                       Row(
                         mainAxisSize: MainAxisSize.max,
                         children: [
                           Flexible(
                             child: Align(
-                              alignment: AlignmentDirectional(0, 0),
+                              alignment: const AlignmentDirectional(0, 0),
                               child: Padding(
                                 padding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
                                 child: Text(
@@ -857,7 +853,7 @@ class _LivroDetalhesState extends State<LivroDetalhes> {
                           ),
                         ],
                       ),
-                      SizedBox(height: 12),
+                      const SizedBox(height: 12),
                       Row(
                         mainAxisSize: MainAxisSize.max,
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -880,7 +876,7 @@ class _LivroDetalhesState extends State<LivroDetalhes> {
                           ),
                         ],
                       ),
-                      SizedBox(height: 12),
+                      const SizedBox(height: 12),
                       Align(
                         alignment: Alignment.center,
                         child: Wrap(
@@ -893,7 +889,7 @@ class _LivroDetalhesState extends State<LivroDetalhes> {
                               return Chip(
                                 label: Text(tag),
                                 backgroundColor: Palette.WBColor.shade700,
-                                labelStyle: TextStyle(
+                                labelStyle: const TextStyle(
                                   fontFamily: 'Ubuntu',
                                   fontSize: 12,
                                 ),
@@ -902,14 +898,14 @@ class _LivroDetalhesState extends State<LivroDetalhes> {
                           ),
                         ),
                       ),
-                      SizedBox(height: 20),
+                      const SizedBox(height: 20),
                       Container(
                         width: 100,
                         height: 28,
-                        decoration: BoxDecoration(
+                        decoration: const BoxDecoration(
                           // color: FlutterFlowTheme.of(context).secondaryBackground,
                         ),
-                        alignment: AlignmentDirectional(0, 0.050000000000000044),
+                        alignment: const AlignmentDirectional(0, 0.050000000000000044),
                         child: Text(
                           'ÍNDICE',
                           style: TextStyle(
@@ -1027,7 +1023,7 @@ class _LivroDetalhesState extends State<LivroDetalhes> {
               );
             },
         ),
-        endDrawer: Sidebar(),
+        endDrawer: const Sidebar(),
       ),
     );
   }
@@ -1035,19 +1031,20 @@ class _LivroDetalhesState extends State<LivroDetalhes> {
 
 class BookService {
   Future<Map<String, dynamic>> getBook(int bookId) async {
-    final String response =
-        await rootBundle.loadString('assets/data/book_detailed_data.json');
+    // final String response =
+    //     await rootBundle.loadString('assets/data/book_detailed_data.json');
 
-    return jsonDecode(response);
+    // return jsonDecode(response);
 
-    // final response = await http.get(
-    //     Uri.parse('http://worldbooks.serratedevs.com.br/wbcore/public/api/historia/$bookId'));
+    Dio dio = Dio();
 
-    // if (response.statusCode == 200) {
-    //   return jsonDecode(response.body);
-    // } else {
-    //   throw Exception('Erro ao carregar o livro');
-    // }
+    final response = await dio.get('http://worldbooks.serratedevs.com.br/wbcore/public/api/historia/$bookId');
+
+    if (response.statusCode == 200) {
+      return response.data;
+    } else {
+      throw Exception('Erro ao carregar o livro');
+    }
   }
 
   // Future<Map<String, dynamic>> getChapter(int chapterId) async {

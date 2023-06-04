@@ -14,18 +14,17 @@ description: A new Flutter project.
 version: 1.0.0+1
 
 environment:
-  sdk: ">=2.17.0 <3.0.0"
+  sdk: ">=3.0.0 <3.10.0"
 
 dependencies:
   flutter:
     sdk: flutter
-  http: ^0.13.6
   intl: ^0.18.1
   cookie_jar: ^4.0.3
   dio: ^5.1.2
   dio_cookie_manager: ^3.0.0
   path_provider: ^2.0.15
-  flutter_html: ^2.1.0
+  flutter_html: ^3.0.0-beta.2
 
 dev_dependencies:
   flutter_test:
@@ -36,14 +35,13 @@ dev_dependencies:
   # activated in the `analysis_options.yaml` file located at the root of your
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
-  flutter_lints: ^1.0.0
+  flutter_lints: ^2.0.1
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 
 # The following section is specific to Flutter.
 flutter:
-
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
   # the material Icons class.
@@ -51,42 +49,42 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
-  # BACKGROUNDS
-   - assets/images/wb_logo.png
-   - assets/images/wave-haikei.png
-   - assets/images/wave-haikei-2.png
-   - assets/images/blob-scene-haikei.png
-   - assets/images/blob-haikei-2.png
-   - assets/images/layered-waves-haikei.png
-   - assets/images/layered-waves-haikei-2.png
-   - assets/images/layered-waves-haikei-3.png
-   - assets/images/cat_cover.jpg
+    # BACKGROUNDS
+    - assets/images/wb_logo.png
+    - assets/images/wave-haikei.png
+    - assets/images/wave-haikei-2.png
+    - assets/images/blob-scene-haikei.png
+    - assets/images/blob-haikei-2.png
+    - assets/images/layered-waves-haikei.png
+    - assets/images/layered-waves-haikei-2.png
+    - assets/images/layered-waves-haikei-3.png
+    - assets/images/cat_cover.jpg
 
-  #  BACKGROUND CATEGORIAS
-   - assets/images/categorias/romance.png
-   - assets/images/categorias/terror.png
-   - assets/images/categorias/acao.png
-   - assets/images/categorias/misterio.png
-   - assets/images/categorias/aventura.png
-   - assets/images/categorias/comedia.png
-   - assets/images/categorias/fantasia.png
-   - assets/images/categorias/ficcao_cientifica.png
-   - assets/images/categorias/suspense.png
-   - assets/images/categorias/drama.png
-   - assets/data/books_list_data.json
-   - assets/data/book_detailed_data.json
+    #  BACKGROUND CATEGORIAS
+    - assets/images/categorias/romance.png
+    - assets/images/categorias/terror.png
+    - assets/images/categorias/acao.png
+    - assets/images/categorias/misterio.png
+    - assets/images/categorias/aventura.png
+    - assets/images/categorias/comedia.png
+    - assets/images/categorias/fantasia.png
+    - assets/images/categorias/ficcao_cientifica.png
+    - assets/images/categorias/suspense.png
+    - assets/images/categorias/drama.png
+    - assets/data/books_list_data.json
+    - assets/data/book_detailed_data.json
 
-  #  AVATAR
-   - assets/images/avatar/default.jpg
+    #  AVATAR
+    - assets/images/avatar/default.jpg
 
-  #  JSONS
-   - assets/data/book_detailed_data.json
-   - assets/data/books_list_data.json
-   - assets/data/categoria_data.json
-   - assets/data/capitulos.json
-   - assets/data/publico_alvo.json
-   - assets/data/idiomas.json
-   - assets/data/direitos_autor.json
+    #  JSONS
+    - assets/data/book_detailed_data.json
+    - assets/data/books_list_data.json
+    - assets/data/categoria_data.json
+    - assets/data/capitulos.json
+    - assets/data/publico_alvo.json
+    - assets/data/idiomas.json
+    - assets/data/direitos_autor.json
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
@@ -109,7 +107,7 @@ flutter:
         - asset: assets/fonts/Ubuntu-Light.ttf
         # - asset: assets/fonts/Ubuntu-LightItalic.ttf
         - asset: assets/fonts/Ubuntu-Medium.ttf
-        # - asset: assets/fonts/Ubuntu-MediumItalic.ttf
+          # - asset: assets/fonts/Ubuntu-MediumItalic.ttf
           style: normal
           weight: 100
   # For details regarding fonts from package dependencies,

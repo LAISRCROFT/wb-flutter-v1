@@ -1,15 +1,8 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:worldbooks/models/Livro.dart';
-import 'dart:io';
 import 'palletes/pallete.dart';
-import 'models/Categorias.dart';
 import 'detalhe_livro.dart';
-import 'package:intl/intl.dart';
-import 'palletes/pallete.dart';
 import 'components/Sidebar.dart';
-import 'package:flutter/services.dart';
-import 'dart:convert';
-import 'categorias.dart';
 
 class Livros extends StatefulWidget {
   const Livros(
@@ -29,18 +22,31 @@ class _LivrosState extends State<Livros> {
   Object? get livroId => null;
 
   Future<List<dynamic>> getBooks() async {
-    final String response =
-        await rootBundle.loadString('assets/data/books_list_data.json');
-    var categorias_response = jsonDecode(response);
+    Dio dio = Dio();
 
-    List<dynamic> categorias_livros = [];
-    for (var i = 0; i < categorias_response['data'].length; i++) {
-      if (categorias_response['data'][i]['categoria_id'] == widget.categoria_id) {
-        categorias_livros.add(categorias_response['data'][i]);
+    final response = await dio.get('https://worldbooks.serratedevs.com.br/wbcore/public/api/historia/categoria/pesquisa?categoria_id=${widget.categoria_id}');
+
+    var categoriasResponse;
+
+    if (response.statusCode == 200) {
+
+      categoriasResponse = response.data;
+    } else {
+      throw Exception('Erro ao carregar os livros');
+    }
+    
+    // final String response =
+    //     await rootBundle.loadString('assets/data/books_list_data.json');
+    // var categoriasResponse = jsonDecode(response);
+
+    List<dynamic> categoriasLivros = [];
+    for (var i = 0; i < categoriasResponse['data'].length; i++) {
+      if (categoriasResponse['data'][i]['categoria_id'] == widget.categoria_id) {
+        categoriasLivros.add(categoriasResponse['data'][i]);
       }
     }
 
-    return categorias_livros;
+    return categoriasLivros;
   }
 
   @override
@@ -61,12 +67,12 @@ class _LivrosState extends State<Livros> {
           backgroundColor: Palette.WBColor.shade50,
           title: Text(
             'LIVROS DE ${widget.nome_categoria}',
-            style: TextStyle(
+            style: const TextStyle(
               fontFamily: 'Ubuntu',
             ),
           ),
           leading: IconButton(
-            icon: Icon(Icons.arrow_back, color: Color(0xffffffff)),
+            icon: const Icon(Icons.arrow_back, color: Color(0xffffffff)),
             onPressed: () => Navigator.of(context).pop(),
           ),
         ),
@@ -98,7 +104,7 @@ class _LivrosState extends State<Livros> {
                         padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
                         child: Card(
                           elevation: 0,
-                          margin: EdgeInsets.fromLTRB(0, 15, 0, 15),
+                          margin: const EdgeInsets.fromLTRB(0, 15, 0, 15),
                           color: Palette.WBColor.shade400,
                           child: InkWell(
                             splashColor: Colors.purple.withAlpha(30),
@@ -119,7 +125,7 @@ class _LivrosState extends State<Livros> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  Container(
+                                  SizedBox(
                                     height: MediaQuery.of(context).size.height * 0.25,
                                     child: ClipRRect(
                                       borderRadius: BorderRadius.circular(3),
@@ -131,7 +137,7 @@ class _LivrosState extends State<Livros> {
                                       ),
                                     ),
                                   ),
-                                  SizedBox(width: 8),
+                                  const SizedBox(width: 8),
                                   Expanded(
                                     child: Padding(
                                       padding: const EdgeInsets.fromLTRB(4, 8, 4, 8),
@@ -148,7 +154,7 @@ class _LivrosState extends State<Livros> {
                                               fontSize: 17
                                             ),
                                           ),
-                                          SizedBox(height: 4),
+                                          const SizedBox(height: 4),
                                           Text(
                                             '${livro['nome_usuario']} (${livro['apelido_usuario']})',
                                             style: TextStyle(
@@ -157,7 +163,7 @@ class _LivrosState extends State<Livros> {
                                               color: Palette.WBColor.shade200,
                                             ),
                                           ),
-                                          SizedBox(height: 8),
+                                          const SizedBox(height: 8),
                                           Text(
                                             '${livro['descricao']}',
                                             style: TextStyle(
@@ -169,7 +175,7 @@ class _LivrosState extends State<Livros> {
                                             maxLines: 3,
                                             overflow: TextOverflow.ellipsis,
                                           ),
-                                          SizedBox(height: 10),
+                                          const SizedBox(height: 10),
                                           Align(
                                             alignment: Alignment.centerLeft,
                                             child: Wrap(
@@ -181,10 +187,10 @@ class _LivrosState extends State<Livros> {
                                                   String tag = livro['tags'][index];
                                                   return Chip(
                                                     label: Text(tag),
-                                                    visualDensity: VisualDensity(horizontal: 0, vertical: -4),
-                                                    labelPadding: EdgeInsets.fromLTRB(2, -4, 2, -4),
+                                                    visualDensity: const VisualDensity(horizontal: 0, vertical: -4),
+                                                    labelPadding: const EdgeInsets.fromLTRB(2, -4, 2, -4),
                                                     backgroundColor: Palette.WBColor.shade700,
-                                                    labelStyle: TextStyle(
+                                                    labelStyle: const TextStyle(
                                                       fontFamily: 'Ubuntu',
                                                       fontSize: 11,
                                                     ),
@@ -194,7 +200,7 @@ class _LivrosState extends State<Livros> {
                                                 if (livro['tags'].length > 4)
                                                   Text(
                                                     " +${livro['tags'].length - 4}",
-                                                    style: TextStyle(
+                                                    style: const TextStyle(
                                                       color: Colors.white,
                                                       fontSize: 12,
                                                     ),
@@ -202,7 +208,7 @@ class _LivrosState extends State<Livros> {
                                               ]),
                                             ),
                                           ),
-                                          SizedBox(height: 10),
+                                          const SizedBox(height: 10),
                                           Align(
                                             alignment: Alignment.bottomLeft,
                                             child: Row(
@@ -237,7 +243,7 @@ class _LivrosState extends State<Livros> {
                                                     ),
                                                   ],
                                                 ),
-                                                SizedBox(width: 10), // Espaço vertical entre as colunas
+                                                const SizedBox(width: 10), // Espaço vertical entre as colunas
                                                 Column(
                                                   mainAxisSize: MainAxisSize.max,
                                                   children: [
@@ -264,7 +270,7 @@ class _LivrosState extends State<Livros> {
                                                     ),
                                                   ],
                                                 ),
-                                                SizedBox(width: 10), // Espaço vertical entre as colunas
+                                                const SizedBox(width: 10), // Espaço vertical entre as colunas
                                                 Column(
                                                   mainAxisSize: MainAxisSize.max,
                                                   children: [
@@ -324,7 +330,7 @@ class _LivrosState extends State<Livros> {
             );
           },
         ),
-        endDrawer: Sidebar(),
+        endDrawer: const Sidebar(),
       ),
     );
   }

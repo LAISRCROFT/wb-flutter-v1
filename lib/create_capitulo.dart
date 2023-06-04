@@ -1,16 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:worldbooks/categorias.dart';
 import '../palletes/pallete.dart';
-import 'package:flutter/services.dart';
 import 'components/Sidebar.dart';
-import 'models/Categorias.dart';
-import 'dart:io';
-import 'package:flutter/services.dart';
-import 'package:http/http.dart' as http;
-import 'dart:convert';
 
 class CreateCapitulo extends StatelessWidget {
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+
+  CreateCapitulo({super.key});
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -22,12 +18,12 @@ class CreateCapitulo extends StatelessWidget {
           backgroundColor: Palette.WBColor.shade50,
           elevation: 0,
           leading: IconButton(
-            icon: Icon(Icons.arrow_back, color: Color(0xffffffff)),
+            icon: const Icon(Icons.arrow_back, color: Color(0xffffffff)),
             onPressed: () => Navigator.of(context).pop(),
           ),
         ),
         body: CreateChapter(formKey: formKey),
-        endDrawer: Sidebar(),
+        endDrawer: const Sidebar(),
         floatingActionButton: FloatingActionButton(
           onPressed: () {
             if (formKey.currentState?.validate() ?? false) {
@@ -50,7 +46,7 @@ class CreateCapitulo extends StatelessWidget {
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                    builder: (context) => CategoriasList(),
+                                    builder: (context) => const CategoriasList(),
                                   ),
                                 );
                               },
@@ -71,7 +67,7 @@ class CreateCapitulo extends StatelessWidget {
                                 )
                               ),
                             ),
-                            SizedBox(width: 20),
+                            const SizedBox(width: 20),
                           ],
                         ),
                       ],
@@ -91,7 +87,7 @@ class CreateCapitulo extends StatelessWidget {
 
 class CreateChapter extends StatefulWidget {
   final GlobalKey<FormState> formKey;
-  CreateChapter({required this.formKey});
+  const CreateChapter({super.key, required this.formKey});
   @override
   _CreateChapterState createState() => _CreateChapterState();
 }
@@ -126,7 +122,7 @@ class _CreateChapterState extends State<CreateChapter> {
                       imageUrl,
                       fit: BoxFit.cover,
                     )
-                  : Row(
+                  : const Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
@@ -138,17 +134,17 @@ class _CreateChapterState extends State<CreateChapter> {
               ),
             ],
           ),
-          SizedBox(height: 22),
+          const SizedBox(height: 22),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 15),
             child: TextFormField(
               controller: titulo,
               textAlign: TextAlign.start,
-              style: TextStyle(
+              style: const TextStyle(
                 color:Colors.white,
               ),
               decoration: InputDecoration(
-                hintStyle: TextStyle(color: Colors.white),
+                hintStyle: const TextStyle(color: Colors.white),
                 labelText: 'Título do capítulo',
                 fillColor: Palette.Inputs.shade50,
                 labelStyle: TextStyle(
@@ -162,7 +158,7 @@ class _CreateChapterState extends State<CreateChapter> {
                   ),
                 ),
                 contentPadding: EdgeInsets.fromLTRB(MediaQuery.of(context).size.width * 0.3, 0, 0, 0),
-                focusedBorder: UnderlineInputBorder(
+                focusedBorder: const UnderlineInputBorder(
                   borderSide: BorderSide(
                     color: Palette.InputsShade50,
                     width: 2.0,
@@ -183,7 +179,7 @@ class _CreateChapterState extends State<CreateChapter> {
                 padding: const EdgeInsets.symmetric(horizontal: 15),
                 child: TextFormField(
                   controller: capitulo,
-                  style: TextStyle(
+                  style: const TextStyle(
                     color: Colors.white, // Defina a cor do texto enquanto você escreve
                   ),
                   maxLines: null,
@@ -193,10 +189,10 @@ class _CreateChapterState extends State<CreateChapter> {
                     filled: false,
                     fillColor: Palette.Inputs.shade100,
                     labelStyle: TextStyle(color: Palette.Inputs.shade50),
-                    focusedBorder: OutlineInputBorder(
+                    focusedBorder: const OutlineInputBorder(
                       borderSide: BorderSide(color: Colors.transparent, width: 1),
                     ),
-                    enabledBorder: OutlineInputBorder(
+                    enabledBorder: const OutlineInputBorder(
                       borderSide: BorderSide(color: Colors.transparent, width: 1),
                     ),
                   ),
@@ -211,7 +207,7 @@ class _CreateChapterState extends State<CreateChapter> {
               ),
             ]
           ),
-          SizedBox(height: 22),
+          const SizedBox(height: 22),
         ]
       ),
     );
