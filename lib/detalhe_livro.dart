@@ -424,24 +424,29 @@ class _LivroDetalhesState extends State<LivroDetalhes> {
                   ],
                 ),
                 const SizedBox(height: 12),
-                Align(
-                  alignment: Alignment.center,
-                  child: Wrap(
-                    spacing: 5,
-                    runSpacing: 3,
-                    alignment: WrapAlignment.center,
-                    children: List.generate(
-                      widget.livro['tags'].length, (index) {
-                        String tag = widget.livro['tags'][index];
-                        return Chip(
-                          label: Text(tag),
-                          backgroundColor: Palette.WBColor.shade700,
-                          labelStyle: const TextStyle(
-                            fontFamily: 'Ubuntu',
-                            fontSize: 12,
-                          ),
-                        );
-                      },
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 7),
+                  child: Align(
+                    alignment: Alignment.center,
+                    child: Wrap(
+                      spacing: 4,
+                      runSpacing: -5,
+                      alignment: WrapAlignment.center,
+                      children: List.generate(
+                        widget.livro['tags'].length, (index) {
+                          String tag = widget.livro['tags'][index];
+                          return Chip(
+                            label: Text(tag),
+                            backgroundColor: Palette.WBColor.shade700,
+                            visualDensity: const VisualDensity(horizontal: 0, vertical: -4),
+                            labelPadding: const EdgeInsets.fromLTRB(3, 0, 3, 0),
+                            labelStyle: const TextStyle(
+                              fontFamily: 'Ubuntu',
+                              fontSize: 12,
+                            ),
+                          );
+                        },
+                      ),
                     ),
                   ),
                 ),

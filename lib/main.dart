@@ -11,6 +11,8 @@ import 'package:dio/dio.dart';
 import 'package:dio_cookie_manager/dio_cookie_manager.dart';
 import 'package:path_provider/path_provider.dart';
 
+import 'package:fluttertoast/fluttertoast.dart';
+
 void main() => runApp(const Login());
 
 class Login extends StatelessWidget {
@@ -101,10 +103,8 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   Future<void> _login() async {
-    // final emailFinal = email.text;
-    // final passwordFinal = password.text;
-    const emailFinal = "lais.requena@uni9.edu.br";
-    const passwordFinal = "Dama@0904";
+    final emailFinal = email.text;
+    final passwordFinal = password.text;
 
     await _fetchXsrfToken();
 
@@ -125,6 +125,13 @@ class _MyHomePageState extends State<MyHomePage> {
       // Lógica para processar a resposta do login
 
       final data = response.data;
+        // Fluttertoast.showToast(
+        //   msg: 'API request successful!',
+        //   toastLength: Toast.LENGTH_SHORT,
+        //   gravity: ToastGravity.BOTTOM,
+        //   backgroundColor: Colors.green,
+        //   textColor: Colors.white,
+        // );
 
       // print(data);
 
@@ -143,7 +150,14 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
       );
     } else {
-      // print(response.statusCode);
+      Fluttertoast.showToast(
+        msg: "API request failed! ${response.statusCode} ${response.statusMessage}",
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.BOTTOM,
+        backgroundColor: Colors.red,
+        textColor: Colors.white,
+      );
+
       throw Exception('Failed to login');
     }
   }
@@ -164,172 +178,153 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     final bodyPage = Container(
+      height: MediaQuery.of(context).size.height * 1,
       decoration: const BoxDecoration(
         image: DecorationImage(
           image: AssetImage("assets/images/layered-waves-haikei-3.png"),
           fit: BoxFit.cover,
         ),
       ),
-      child: SingleChildScrollView(
-        child: Center(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              Padding(
-                padding: EdgeInsets.only(
-                  bottom: 15 + MediaQuery.of(context).viewInsets.bottom,
-                ),
-                child: Image.asset(
+      child: Align(
+        alignment: Alignment.center,
+        child: SingleChildScrollView(
+          child: Center(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Image.asset(
                   'assets/images/wb_logo.png',
                   height: 100,
                   width: 100,
                 ),
-              ),
-              Text.rich(
-                textAlign: TextAlign.center,
-                TextSpan(
-                  text: 'Bem-vindo ao ',
-                  // textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontStyle: FontStyle.normal,
-                    fontFamily: 'Ubuntu',
-                    fontSize: 24,
-                    color: Palette.WBColor.shade400,
-                  ),
-                  children: <TextSpan>[
-                    TextSpan(
-                      text: 'World Books!',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontStyle: FontStyle.normal,
-                        fontFamily: 'Ubuntu',
-                        // fontSize: 30,
-                        color: Palette.WBColor.shade50,
-                      ),
-                    )
-                  ],
-                ),
-              ),
-              const SizedBox(height: 30),
-              Padding(
-                padding: EdgeInsets.only(
-                  top: 3,
-                  right: _padding_form,
-                  left: _padding_form,
-                  bottom: 3 + MediaQuery.of(context).viewInsets.bottom,
-                ),
-                child: SizedBox(
-                  width: 10,
-                  child: TextField(
-                    controller: email,
-                    decoration: const InputDecoration(
-                      border: OutlineInputBorder(),
-                      labelText: 'E-mail',
-                      filled: true,
-                      fillColor: Color(0xffffffff),
+                Text.rich(
+                  textAlign: TextAlign.center,
+                  TextSpan(
+                    text: 'Bem-vindo ao ',
+                    // textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontStyle: FontStyle.normal,
+                      fontFamily: 'Ubuntu',
+                      fontSize: 24,
+                      color: Palette.WBColor.shade400,
                     ),
-                  ),
-                ),
-              ),
-              const SizedBox(height: 20),
-              Padding(
-                padding: EdgeInsets.only(
-                  top: 3,
-                  right: _padding_form,
-                  left: _padding_form,
-                  bottom: 3 + MediaQuery.of(context).viewInsets.bottom,
-                ),
-                child: SizedBox(
-                  width: 50,
-                  child: TextField(
-                    controller: password,
-                    obscureText: true,
-                    decoration: const InputDecoration(
-                      border: OutlineInputBorder(),
-                      labelText: 'Password',
-                      filled: true,
-                      fillColor: Color(0xffffffff),
-                    ),
-                  ),
-                ),
-              ),
-              const SizedBox(height: 30),
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  ElevatedButton(
-                    onPressed: () {
-                      _login();
-                    },
-                    style: ButtonStyle(
-                      elevation: MaterialStateProperty.all(0),
-                      maximumSize:
-                          MaterialStateProperty.all(const Size(100, 45)),
-                      padding: MaterialStateProperty.all(
-                          EdgeInsets.symmetric(horizontal: _padding_form)),
-                      backgroundColor:
-                          MaterialStateProperty.all(Palette.WBColor.shade50),
-                      textStyle: MaterialStateProperty.all(
-                        const TextStyle(fontFamily: 'Ubuntu'),
-                      ),
-                    ),
-                    child: const Text("Entrar"),
-                  ),
-                  TextButton(
-                    onPressed: () {},
-                    style: TextButton.styleFrom(
-                      elevation: 0,
-                      minimumSize: const Size(88, 36),
-                      padding: EdgeInsets.symmetric(horizontal: _padding_form),
-                      textStyle: const TextStyle(
-                        fontFamily: 'Ubuntu',
-                      ),
-                    ),
-                    child: const Text("Esqueci  a senha"),
-                  ),
-                ],
-              ),
-              const SizedBox(height: 30),
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text.rich(
-                    textAlign: TextAlign.center,
-                    TextSpan(
-                      text: 'Não possui uma conta? ',
-                      // textAlign: TextAlign.center,
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontStyle: FontStyle.normal,
-                        fontFamily: 'Ubuntu',
-                        fontSize: 16,
-                        color: Palette.WBColor.shade400,
-                      ),
-                      children: <TextSpan>[
-                        TextSpan(
-                          text: 'Cadastre-se!',
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontStyle: FontStyle.normal,
-                            fontFamily: 'Ubuntu',
-                            // fontSize: 30,
-                            color: Palette.WBColor.shade50,
-                          ),
+                    children: <TextSpan>[
+                      TextSpan(
+                        text: 'World Books!',
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontStyle: FontStyle.normal,
+                          fontFamily: 'Ubuntu',
+                          // fontSize: 30,
+                          color: Palette.WBColor.shade50,
                         ),
-                      ],
-                    ),
+                      )
+                    ],
                   ),
-                ],
-              )
-            ],
+                ),
+                const SizedBox(height: 30),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  child: Column(
+                    children: [
+                      TextField(
+                        controller: email,
+                        decoration: const InputDecoration(
+                          border: OutlineInputBorder(),
+                          labelText: 'E-mail',
+                          filled: true,
+                          fillColor: Color(0xffffffff),
+                        ),
+                      ),
+                      const SizedBox(height: 20),
+                      TextField(
+                        controller: password,
+                        obscureText: true,
+                        decoration: const InputDecoration(
+                          border: OutlineInputBorder(),
+                          labelText: 'Password',
+                          filled: true,
+                          fillColor: Color(0xffffffff),
+                        ),
+                      ),
+                      const SizedBox(height: 20),
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          ElevatedButton(
+                            onPressed: () {
+                              _login();
+                            },
+                            style: ButtonStyle(
+                              elevation: MaterialStateProperty.all(0),
+                              maximumSize:  MaterialStateProperty.all(const Size(100, 45)),
+                              padding: MaterialStateProperty.all(EdgeInsets.symmetric(horizontal: _padding_form)),
+                              backgroundColor: MaterialStateProperty.all(Palette.WBColor.shade50),
+                              textStyle: MaterialStateProperty.all(const TextStyle(fontFamily: 'Ubuntu'),
+                              ),
+                            ),
+                            child: const Text("Entrar"),
+                          ),
+                          TextButton(
+                            onPressed: () {},
+                            style: TextButton.styleFrom(
+                              elevation: 0,
+                              minimumSize: const Size(88, 36),
+                              padding: EdgeInsets.symmetric(horizontal: _padding_form),
+                              textStyle: const TextStyle(
+                                fontFamily: 'Ubuntu',
+                              ),
+                            ),
+                            child: const Text("Esqueci  a senha"),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+                const SizedBox(height: 20),
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text.rich(
+                      textAlign: TextAlign.center,
+                      TextSpan(
+                        text: 'Não possui uma conta? ',
+                        // textAlign: TextAlign.center,
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontStyle: FontStyle.normal,
+                          fontFamily: 'Ubuntu',
+                          fontSize: 16,
+                          color: Palette.WBColor.shade400,
+                        ),
+                        children: <TextSpan>[
+                          TextSpan(
+                            text: 'Cadastre-se!',
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontStyle: FontStyle.normal,
+                              fontFamily: 'Ubuntu',
+                              // fontSize: 30,
+                              color: Palette.WBColor.shade50,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                )
+              ],
+            ),
           ),
         ),
       ),
     );
+
     return Scaffold(
       backgroundColor: Palette.WBColor.shade400,
       body: bodyPage,

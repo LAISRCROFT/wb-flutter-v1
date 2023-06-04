@@ -238,8 +238,8 @@ class _ImageWidgetState extends State<ImageWidget> {
           ),
 
           Wrap(
-            spacing: 10,
-            runSpacing: 10,
+            spacing: 2,
+            runSpacing: -5,
             children: _chipList
                 .map(
                   (chip) => Chip(
@@ -622,7 +622,9 @@ class _ImageWidgetState extends State<ImageWidget> {
                         "categoria_id": int.parse(categoria.text),
                         "conteudo_adulto": conteudo_adulto.text == ""
                             ? false
-                            : conteudo_adulto.text,
+                            : conteudo_adulto.text == "true"
+                              ? true
+                              : false,
                         "data_atualizacao": "",
                         "data_criacao": "",
                         "descricao": descricao.text,
@@ -636,7 +638,7 @@ class _ImageWidgetState extends State<ImageWidget> {
                         "usuario_id": GlobalData.getUserId(),
                       };
 
-                      // print("Data: ${dataSend}");
+                      print("Data: ${dataSend}");
 
                       final response = await dio.post(
                           "https://worldbooks.serratedevs.com.br/wbcore/public/api/historia",
@@ -655,9 +657,9 @@ class _ImageWidgetState extends State<ImageWidget> {
                           ));
 
                       if (response.statusCode != 200) {
-                        // print("Status:  ${response.statusCode}");
-                        // print("Data: ${response.data}");
-                        // print("Erro: ${response.statusMessage}");
+                        print("Status:  ${response.statusCode}");
+                        print("Data: ${response.data}");
+                        print("Erro: ${response.statusMessage}");
 
                         throw Exception('Erro ao criar a história');
                       }
@@ -683,7 +685,7 @@ class _ImageWidgetState extends State<ImageWidget> {
                                           context,
                                           MaterialPageRoute(
                                             builder: (context) =>
-                                                CreateCapitulo(livro_id: response.data['id']),
+                                                CreateCapitulo(livro_id: response.data['data']['historia_id']),
                                           ),
                                         );
                                       },
@@ -722,7 +724,7 @@ class _ImageWidgetState extends State<ImageWidget> {
                       );
                     } on DioError catch (e) {
                       // print(e.response!.data);
-                      throw Exception('Erro ao criar a história');
+                      throw Exception('Erro ao criar a história. Exception: ${e.response!.data}');
                     }
 
                     // print("Status:  ${response.statusCode}");

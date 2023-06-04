@@ -188,7 +188,7 @@ class _LivrosState extends State<Livros> {
                                                   return Chip(
                                                     label: Text(tag),
                                                     visualDensity: const VisualDensity(horizontal: 0, vertical: -4),
-                                                    labelPadding: const EdgeInsets.fromLTRB(2, -4, 2, -4),
+                                                    labelPadding: const EdgeInsets.fromLTRB(0, -5, 0, -5),
                                                     backgroundColor: Palette.WBColor.shade700,
                                                     labelStyle: const TextStyle(
                                                       fontFamily: 'Ubuntu',
@@ -198,11 +198,14 @@ class _LivrosState extends State<Livros> {
                                                 },
                                               )..addAll([
                                                 if (livro['tags'].length > 4)
-                                                  Text(
-                                                    " +${livro['tags'].length - 4}",
-                                                    style: const TextStyle(
-                                                      color: Colors.white,
-                                                      fontSize: 12,
+                                                  Container(
+                                                    margin: const EdgeInsets.fromLTRB(0, 9, 0, 0),
+                                                    child: Text(
+                                                      " +${livro['tags'].length - 4}",
+                                                      style: const TextStyle(
+                                                        color: Colors.white,
+                                                        fontSize: 12,
+                                                      ),
                                                     ),
                                                   ),
                                               ]),
