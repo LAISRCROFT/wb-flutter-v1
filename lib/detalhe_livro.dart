@@ -1,5 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:worldbooks/create_capitulo.dart';
+import 'package:worldbooks/create_livro.dart';
 import 'package:worldbooks/read_capitulo.dart';
 import 'palletes/pallete.dart';
 import 'components/Sidebar.dart';
@@ -265,7 +267,15 @@ class _LivroDetalhesState extends State<LivroDetalhes> {
                             ),
                           ),
                           child: InkWell(
-                            onTap: () {},
+                            onTap: () {
+                              print('Add new chapter');
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => CreateCapitulo( livro_id: widget.livro_id ),
+                                ),
+                              );
+                            },
                             child: Padding(
                               padding: const EdgeInsets.fromLTRB(10, 5, 10, 5),
                               child: Icon(

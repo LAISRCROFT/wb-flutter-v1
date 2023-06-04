@@ -1,32 +1,35 @@
 import 'package:flutter/material.dart';
 import 'package:worldbooks/create_capitulo.dart';
+import 'package:worldbooks/global_data.dart';
 import '../palletes/pallete.dart';
 import 'components/Sidebar.dart';
 import 'models/Chip.dart';
 import 'package:flutter/services.dart';
 import 'dart:convert';
 
+import 'package:dio/dio.dart';
+
 class CreateLivro extends StatelessWidget {
   const CreateLivro({super.key});
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        debugShowCheckedModeBanner: false,
-        home: Scaffold(
-          backgroundColor: Palette.WBColor.shade400,
-          appBar: AppBar(
-            centerTitle: true,
-            backgroundColor: Palette.WBColor.shade50,
-            elevation: 0,
-            leading: IconButton(
-              icon: const Icon(Icons.arrow_back, color: Color(0xffffffff)),
-              onPressed: () => Navigator.of(context).pop(),
-            ),
+      debugShowCheckedModeBanner: false,
+      home: Scaffold(
+        backgroundColor: Palette.WBColor.shade400,
+        appBar: AppBar(
+          centerTitle: true,
+          backgroundColor: Palette.WBColor.shade50,
+          elevation: 0,
+          leading: IconButton(
+            icon: const Icon(Icons.arrow_back, color: Color(0xffffffff)),
+            onPressed: () => Navigator.of(context).pop(),
           ),
-          body: const ImageWidget(),
-          endDrawer: const Sidebar(),
         ),
-      );
+        body: const ImageWidget(),
+        endDrawer: const Sidebar(),
+      ),
+    );
   }
 }
 
@@ -61,21 +64,41 @@ class _ImageWidgetState extends State<ImageWidget> {
   final _formKey = GlobalKey<FormState>();
 
   Future<Map<String, dynamic>> getCategorias() async {
-    final String response = await rootBundle.loadString('assets/data/categoria_data.json');
-    return jsonDecode(response);
+    Dio dio = Dio();
+
+    final response = await dio.get(
+        'https://worldbooks.serratedevs.com.br/wbcore/public/api/categoria');
+
+    return response.data;
   }
+
   Future<Map<String, dynamic>> getIdiomas() async {
-    final String response = await rootBundle.loadString('assets/data/idiomas.json');
-    return jsonDecode(response);
+    Dio dio = Dio();
+
+    final response = await dio
+        .get('https://worldbooks.serratedevs.com.br/wbcore/public/api/idioma');
+
+    return response.data;
   }
+
   Future<Map<String, dynamic>> getDireitos() async {
-    final String response = await rootBundle.loadString('assets/data/direitos_autor.json');
-    return jsonDecode(response);
+    Dio dio = Dio();
+
+    final response = await dio.get(
+        'https://worldbooks.serratedevs.com.br/wbcore/public/api/direitos_autorais');
+
+    return response.data;
   }
+
   Future<Map<String, dynamic>> getPublicos() async {
-    final String response = await rootBundle.loadString('assets/data/publico_alvo.json');
-    return jsonDecode(response);
+    Dio dio = Dio();
+
+    final response = await dio.get(
+        'https://worldbooks.serratedevs.com.br/wbcore/public/api/publico_alvo');
+
+    return response.data;
   }
+
   void _deleteChip(String name) {
     setState(() {
       _chipList.removeWhere((element) => element.name == name);
@@ -125,7 +148,8 @@ class _ImageWidgetState extends State<ImageWidget> {
                   updateImage(value);
                 },
                 style: const TextStyle(
-                  color: Colors.white, // Defina a cor do texto enquanto você escreve
+                  color: Colors
+                      .white, // Defina a cor do texto enquanto você escreve
                 ),
                 decoration: InputDecoration(
                   labelText: 'URL da capa',
@@ -137,7 +161,8 @@ class _ImageWidgetState extends State<ImageWidget> {
                     borderSide: BorderSide(color: Color(0xffffffff), width: 1),
                   ),
                   enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Palette.Inputs.shade100, width: 1),
+                    borderSide:
+                        BorderSide(color: Palette.Inputs.shade100, width: 1),
                   ),
                 ),
                 validator: (value) {
@@ -153,7 +178,8 @@ class _ImageWidgetState extends State<ImageWidget> {
           TextFormField(
             controller: titulo,
             style: const TextStyle(
-              color:Colors.white, // Defina a cor do texto enquanto você escreve
+              color:
+                  Colors.white, // Defina a cor do texto enquanto você escreve
             ),
             decoration: InputDecoration(
               border: const OutlineInputBorder(),
@@ -165,7 +191,8 @@ class _ImageWidgetState extends State<ImageWidget> {
                 borderSide: BorderSide(color: Color(0xffffffff), width: 1),
               ),
               enabledBorder: OutlineInputBorder(
-                borderSide: BorderSide(color: Palette.Inputs.shade100, width: 1),
+                borderSide:
+                    BorderSide(color: Palette.Inputs.shade100, width: 1),
               ),
             ),
             validator: (value) {
@@ -179,7 +206,8 @@ class _ImageWidgetState extends State<ImageWidget> {
           TextFormField(
             controller: descricao,
             style: const TextStyle(
-              color: Colors.white, // Defina a cor do texto enquanto você escreve
+              color:
+                  Colors.white, // Defina a cor do texto enquanto você escreve
             ),
             maxLines: 5,
             decoration: InputDecoration(
@@ -192,7 +220,8 @@ class _ImageWidgetState extends State<ImageWidget> {
                 borderSide: BorderSide(color: Color(0xffffffff), width: 1),
               ),
               enabledBorder: OutlineInputBorder(
-                borderSide: BorderSide(color: Palette.Inputs.shade100, width: 1),
+                borderSide:
+                    BorderSide(color: Palette.Inputs.shade100, width: 1),
               ),
             ),
             validator: (value) {
@@ -211,12 +240,15 @@ class _ImageWidgetState extends State<ImageWidget> {
           Wrap(
             spacing: 10,
             runSpacing: 10,
-            children: _chipList.map((chip) => Chip(
-                label: Text(chip.name),
-                backgroundColor: Palette.InputsShade50,
-                onDeleted: ()=> _deleteChip(chip.name), 
-              ),
-            ).toList(),
+            children: _chipList
+                .map(
+                  (chip) => Chip(
+                    label: Text(chip.name),
+                    backgroundColor: Palette.InputsShade50,
+                    onDeleted: () => _deleteChip(chip.name),
+                  ),
+                )
+                .toList(),
           ),
           const SizedBox(height: 16),
           Flexible(
@@ -232,26 +264,30 @@ class _ImageWidgetState extends State<ImageWidget> {
                   borderSide: BorderSide(color: Color(0xffffffff), width: 1),
                 ),
                 enabledBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: Palette.Inputs.shade100, width: 1),
+                  borderSide:
+                      BorderSide(color: Palette.Inputs.shade100, width: 1),
                 ),
               ),
               textInputAction: TextInputAction.go,
               style: const TextStyle(
-                color: Colors.white, // Defina a cor do texto enquanto você escreve
+                color:
+                    Colors.white, // Defina a cor do texto enquanto você escreve
               ),
               validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return 'Adicione pelo menos uma tag';
+                if (_chipList.length == 0) {
+                  if (value == null || value.isEmpty) {
+                    return 'Adicione pelo menos uma tag';
+                  }
                 }
                 return null;
               },
               onFieldSubmitted: (value) {
                 setState(() {
-                  _chipList.add(ChipModel(
-                    name: _chipTextController.text),
+                  _chipList.add(
+                    ChipModel(name: _chipTextController.text),
                   );
                   _chipTextController.text = '';
-                  print("TAGS: $_chipList");
+                  // print("TAGS: $_chipList");
                 });
               },
             ),
@@ -259,18 +295,16 @@ class _ImageWidgetState extends State<ImageWidget> {
 
           const SizedBox(height: 16),
 
-        // CATEGORIA
+          // CATEGORIA
           Divider(
             thickness: 1,
             color: Palette.WBColor.shade300,
           ),
-          const Text(
-            "Selecione a categoria",
-            style: TextStyle(
-              color: Palette.InputsShade50,
-              fontFamily: 'Ubuntu',
-            )
-          ),
+          const Text("Selecione a categoria",
+              style: TextStyle(
+                color: Palette.InputsShade50,
+                fontFamily: 'Ubuntu',
+              )),
           const SizedBox(height: 2),
           DropdownButtonHideUnderline(
             child: FutureBuilder<Map<String, dynamic>>(
@@ -293,10 +327,8 @@ class _ImageWidgetState extends State<ImageWidget> {
                     filled: true,
                     fillColor: Palette.Inputs.shade100,
                     focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(
-                        color: Palette.WBColor.shade400, 
-                        width: 0
-                      ), 
+                      borderSide:
+                          BorderSide(color: Palette.WBColor.shade400, width: 0),
                     ),
                   ),
                   validator: (value) {
@@ -332,18 +364,16 @@ class _ImageWidgetState extends State<ImageWidget> {
           ),
           const SizedBox(height: 16),
 
-        // IDIOMA
+          // IDIOMA
           Divider(
             thickness: 1,
             color: Palette.WBColor.shade300,
           ),
-          const Text(
-            "Selecione o idioma",
-            style: TextStyle(
-              color: Palette.InputsShade50,
-              fontFamily: 'Ubuntu',
-            )
-          ),
+          const Text("Selecione o idioma",
+              style: TextStyle(
+                color: Palette.InputsShade50,
+                fontFamily: 'Ubuntu',
+              )),
           const SizedBox(height: 2),
           DropdownButtonHideUnderline(
             child: FutureBuilder<Map<String, dynamic>>(
@@ -357,6 +387,7 @@ class _ImageWidgetState extends State<ImageWidget> {
                   return const Text('Nenhum idioma encontrado');
                 }
                 List<dynamic> idiomas = snapshot.data!['data'];
+
                 return DropdownButtonFormField<Map<String, dynamic>>(
                   value: dropdownIdiomaValue,
                   elevation: 0,
@@ -366,10 +397,8 @@ class _ImageWidgetState extends State<ImageWidget> {
                     filled: true,
                     fillColor: Palette.Inputs.shade100,
                     focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(
-                        color: Palette.WBColor.shade400, 
-                        width: 0
-                      ), 
+                      borderSide:
+                          BorderSide(color: Palette.WBColor.shade400, width: 0),
                     ),
                   ),
                   validator: (value) {
@@ -390,7 +419,7 @@ class _ImageWidgetState extends State<ImageWidget> {
                       return DropdownMenuItem<Map<String, dynamic>>(
                         value: categ,
                         child: Text(
-                          categ["nome"],
+                          categ["idioma"],
                           style: const TextStyle(
                             fontFamily: 'Ubuntu',
                             color: Colors.white,
@@ -405,18 +434,16 @@ class _ImageWidgetState extends State<ImageWidget> {
           ),
           const SizedBox(height: 16),
 
-        // PÚBLICO
+          // PÚBLICO
           Divider(
             thickness: 1,
             color: Palette.WBColor.shade300,
           ),
-          const Text(
-            "Selecione o público alvo",
-            style: TextStyle(
-              color: Palette.InputsShade50,
-              fontFamily: 'Ubuntu',
-            )
-          ),
+          const Text("Selecione o público alvo",
+              style: TextStyle(
+                color: Palette.InputsShade50,
+                fontFamily: 'Ubuntu',
+              )),
           const SizedBox(height: 2),
           DropdownButtonHideUnderline(
             child: FutureBuilder<Map<String, dynamic>>(
@@ -439,10 +466,8 @@ class _ImageWidgetState extends State<ImageWidget> {
                     filled: true,
                     fillColor: Palette.Inputs.shade100,
                     focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(
-                        color: Palette.WBColor.shade400, 
-                        width: 0
-                      ), 
+                      borderSide:
+                          BorderSide(color: Palette.WBColor.shade400, width: 0),
                     ),
                   ),
                   validator: (value) {
@@ -463,7 +488,7 @@ class _ImageWidgetState extends State<ImageWidget> {
                       return DropdownMenuItem<Map<String, dynamic>>(
                         value: categ,
                         child: Text(
-                          categ["nome"],
+                          categ["publico"],
                           style: const TextStyle(
                             fontFamily: 'Ubuntu',
                             color: Colors.white,
@@ -478,18 +503,16 @@ class _ImageWidgetState extends State<ImageWidget> {
           ),
           const SizedBox(height: 16),
 
-        // DIREITOS
+          // DIREITOS
           Divider(
             thickness: 1,
             color: Palette.WBColor.shade300,
           ),
-          const Text(
-            "Selecione os direitos do autor",
-            style: TextStyle(
-              color: Palette.InputsShade50,
-              fontFamily: 'Ubuntu',
-            )
-          ),
+          const Text("Selecione os direitos do autor",
+              style: TextStyle(
+                color: Palette.InputsShade50,
+                fontFamily: 'Ubuntu',
+              )),
           const SizedBox(height: 2),
           DropdownButtonHideUnderline(
             child: FutureBuilder<Map<String, dynamic>>(
@@ -512,10 +535,8 @@ class _ImageWidgetState extends State<ImageWidget> {
                     filled: true,
                     fillColor: Palette.Inputs.shade100,
                     focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(
-                        color: Palette.WBColor.shade400, 
-                        width: 0
-                      ), 
+                      borderSide:
+                          BorderSide(color: Palette.WBColor.shade400, width: 0),
                     ),
                   ),
                   validator: (value) {
@@ -536,7 +557,7 @@ class _ImageWidgetState extends State<ImageWidget> {
                       return DropdownMenuItem<Map<String, dynamic>>(
                         value: categ,
                         child: Text(
-                          categ["nome"],
+                          categ["tipo_autoral"],
                           style: const TextStyle(
                             fontFamily: 'Ubuntu',
                             color: Colors.white,
@@ -551,7 +572,7 @@ class _ImageWidgetState extends State<ImageWidget> {
           ),
           const SizedBox(height: 16),
 
-        // CONTEúdo adulto
+          // CONTEúdo adulto
           Divider(
             thickness: 1,
             color: Palette.WBColor.shade300,
@@ -559,13 +580,11 @@ class _ImageWidgetState extends State<ImageWidget> {
           Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              const Text(
-                "Conteúdo adulto?",
-                style: TextStyle(
-                  color: Palette.InputsShade50,
-                  fontFamily: 'Ubuntu',
-                )
-              ),
+              const Text("Conteúdo adulto?",
+                  style: TextStyle(
+                    color: Palette.InputsShade50,
+                    fontFamily: 'Ubuntu',
+                  )),
               const SizedBox(height: 2),
               Switch(
                 activeColor: Palette.WBColor.shade50,
@@ -580,72 +599,134 @@ class _ImageWidgetState extends State<ImageWidget> {
             ],
           ),
           const SizedBox(height: 16),
-        // Botões
+          // Botões
           Row(
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               ElevatedButton(
-                onPressed: () {
+                onPressed: () async {
                   if (_formKey.currentState?.validate() ?? false) {
-                    showDialog<String>(
-                      context: context,
-                      builder: (BuildContext context) => Dialog(
-                        child: Padding(
-                          padding: const EdgeInsets.all(10.0),
-                          child: Column(
-                            mainAxisSize: MainAxisSize.min,
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: <Widget>[
-                              const Text('Sua história foi criada com sucesso! Deseja criar o 1º capítulo?'),
-                              const SizedBox(height: 15),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  ElevatedButton(
-                                    onPressed: () {
-                                      Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                          builder: (context) => CreateCapitulo(),
+
+                    Dio dio = Dio();
+
+                    // Create an array of tags
+                    List<String> tags = [];
+                    _chipList.forEach((element) {
+                      tags.add(element.name);
+                    });
+
+                    try {
+                      final dataSend = {
+                        "caminho_capa": imageUrl,
+                        "categoria_id": int.parse(categoria.text),
+                        "conteudo_adulto": conteudo_adulto.text == ""
+                            ? false
+                            : conteudo_adulto.text,
+                        "data_atualizacao": "",
+                        "data_criacao": "",
+                        "descricao": descricao.text,
+                        "direitos_autorais_id": int.parse(direitos_autor.text),
+                        "historia_finalizada": false,
+                        "idioma_id": int.parse(idioma.text),
+                        "personagens_principais": "[]",
+                        "publico_alvo_id": int.parse(publico_alvo.text),
+                        "tags": tags,
+                        "titulo": titulo.text,
+                        "usuario_id": GlobalData.getUserId(),
+                      };
+
+                      // print("Data: ${dataSend}");
+
+                      final response = await dio.post(
+                          "https://worldbooks.serratedevs.com.br/wbcore/public/api/historia",
+                          data: dataSend,
+                          options: Options(
+                            followRedirects: true,
+                            validateStatus: (status) {
+                              return status! < 400;
+                            },
+                            headers: {
+                              'X-XSRF-TOKEN': GlobalData.getXsrfToken(),
+                              'Authorization':
+                                  'Bearer ${GlobalData.getApiToken()}',
+                              "Accept": "application/json"
+                            },
+                          ));
+
+                      if (response.statusCode != 200) {
+                        // print("Status:  ${response.statusCode}");
+                        // print("Data: ${response.data}");
+                        // print("Erro: ${response.statusMessage}");
+
+                        throw Exception('Erro ao criar a história');
+                      }
+
+                      showDialog<String>(
+                        context: context,
+                        builder: (BuildContext context) => Dialog(
+                          child: Padding(
+                            padding: const EdgeInsets.all(10.0),
+                            child: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: <Widget>[
+                                const Text(
+                                    'Sua história foi criada com sucesso! Deseja criar o 1º capítulo?'),
+                                const SizedBox(height: 15),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    ElevatedButton(
+                                      onPressed: () {
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) =>
+                                                CreateCapitulo(livro_id: response.data['id']),
+                                          ),
+                                        );
+                                      },
+                                      style: ButtonStyle(
+                                        elevation: MaterialStateProperty.all(0),
+                                        maximumSize: MaterialStateProperty.all(
+                                            const Size(250, 45)),
+                                        // padding: MaterialStateProperty.all(EdgeInsets.symmetric(horizontal: _padding_form)),
+                                        backgroundColor:
+                                            MaterialStateProperty.all(
+                                                Palette.WBColor.shade50),
+                                        textStyle: MaterialStateProperty.all(
+                                          const TextStyle(fontFamily: 'Ubuntu'),
                                         ),
-                                      );
-                                    },
-                                    style: ButtonStyle(
-                                      elevation: MaterialStateProperty.all(0),
-                                      maximumSize: MaterialStateProperty.all(const Size(250, 45)),
-                                      // padding: MaterialStateProperty.all(EdgeInsets.symmetric(horizontal: _padding_form)),
-                                      backgroundColor:MaterialStateProperty.all(Palette.WBColor.shade50),
-                                      textStyle: MaterialStateProperty.all(
-                                        const TextStyle(fontFamily: 'Ubuntu'),
                                       ),
+                                      child: const Text('Sim',
+                                          style: TextStyle(
+                                            color: Colors.white,
+                                          )),
                                     ),
-                                    child: const Text(
-                                      'Sim',
-                                      style: TextStyle(
-                                        color: Colors.white,
-                                      )
+                                    const SizedBox(width: 20),
+                                    TextButton(
+                                      onPressed: () {
+                                        Navigator.pop(context);
+                                      },
+                                      child: const Text('Voltar',
+                                          style: TextStyle(
+                                              color: Palette.WBColorShade50)),
                                     ),
-                                  ),
-                                  const SizedBox(width: 20),
-                                  TextButton(
-                                    onPressed: () {
-                                      Navigator.pop(context);
-                                    },
-                                    child: const Text(
-                                      'Voltar',
-                                      style: TextStyle(
-                                        color: Palette.WBColorShade50
-                                      )
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ],
+                                  ],
+                                ),
+                              ],
+                            ),
                           ),
                         ),
-                      ),
-                    );
+                      );
+                    } on DioError catch (e) {
+                      // print(e.response!.data);
+                      throw Exception('Erro ao criar a história');
+                    }
+
+                    // print("Status:  ${response.statusCode}");
+                    // print("Data: ${response.data}");
                   }
                   // Navigator.push(
                   //   context,
@@ -658,17 +739,20 @@ class _ImageWidgetState extends State<ImageWidget> {
                   elevation: MaterialStateProperty.all(0),
                   maximumSize: MaterialStateProperty.all(const Size(250, 45)),
                   // padding: MaterialStateProperty.all(EdgeInsets.symmetric(horizontal: _padding_form)),
-                  backgroundColor:MaterialStateProperty.all(Palette.WBColor.shade50),
+                  backgroundColor:
+                      MaterialStateProperty.all(Palette.WBColor.shade50),
                   textStyle: MaterialStateProperty.all(
                     const TextStyle(fontFamily: 'Ubuntu'),
                   ),
                 ),
-                child: const Text("Seguinte"),
+                child: const Text("Criar história"),
               ),
               // SizedBox(width: 10),
               ElevatedButton(
-                onPressed: () {
+                onPressed: () async {
                   _formKey.currentState!.reset();
+                  // print(dropdownCategoriaValue);
+
                   imageUrl = '';
                   titulo.text = '';
                   descricao.text = '';
@@ -680,13 +764,20 @@ class _ImageWidgetState extends State<ImageWidget> {
                   dropdownPublicoValue = null;
                   dropdownDireitosValue = null;
                   dropdownConteudoAdultoValue = false;
-                  print(dropdownCategoriaValue);
+
+                  // Navigator.push(
+                  //   context,
+                  //   MaterialPageRoute(
+                  //     builder: (context) => CreateCapitulo(),
+                  //   ),
+                  // );
                 },
                 style: ButtonStyle(
                   elevation: MaterialStateProperty.all(0),
                   maximumSize: MaterialStateProperty.all(const Size(250, 45)),
                   // padding: MaterialStateProperty.all(EdgeInsets.symmetric(horizontal: _padding_form)),
-                  backgroundColor:MaterialStateProperty.all(Palette.WBColor.shade300),
+                  backgroundColor:
+                      MaterialStateProperty.all(Palette.WBColor.shade300),
                   textStyle: MaterialStateProperty.all(
                     const TextStyle(fontFamily: 'Ubuntu'),
                   ),
